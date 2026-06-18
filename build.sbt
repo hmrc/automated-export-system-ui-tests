@@ -1,6 +1,6 @@
 lazy val root = (project in file("."))
   .settings(
-    name := "automated-export-system-acceptance-tests",
+    name := "automated-export-system-ui-tests",
     version := "0.1.0",
     scalaVersion := "3.3.4",
     libraryDependencies ++= Dependencies.test,

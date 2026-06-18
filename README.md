@@ -1,3 +1,4 @@
+**This is the template README. Please update this with project specific content.**
 
 # automated-export-system-ui-tests
 
