@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,23 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.specs
+package uk.gov.hmrc.test.ui.specs
 
-import org.scalatest.funsuite.AnyFunSuite
+import uk.gov.hmrc.selenium.webdriver.Driver
 
-class SampleSpec extends AnyFunSuite {
+class SampleSpec extends BaseSpec {
 
-  test("basic test runs") {
-    assert(1 == 1)
+  Feature("Basic UI test") {
+
+    Scenario("Open a page") {
+
+      Given("browser is running")
+
+      When("user goes to a page")
+      Driver.instance.get("https://www.google.com")
+
+      Then("page title should contain Google")
+      Driver.instance.getTitle should include("Google")
+    }
   }
-
 }
