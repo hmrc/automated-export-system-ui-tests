@@ -14,13 +14,22 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.driver
+package uk.gov.hmrc.test.ui.util
 
 import org.openqa.selenium.WebDriver
-import uk.gov.hmrc.selenium.webdriver.Driver
+import org.openqa.selenium.support.ui.{FluentWait, WebDriverWait}
 
-trait Driver {
+import java.time.Duration
 
-  implicit def driver: WebDriver = Driver.instance
+trait DriverHelper {
+
+  def fluentWait(implicit driver: WebDriver): FluentWait[WebDriver] =
+    new FluentWait(driver)
+      .withTimeout(Duration.ofSeconds(10))
+      .pollingEvery(Duration.ofMillis(500))
+      .ignoring(classOf[Exception])
+
+  def explicitWait(implicit driver: WebDriver): WebDriverWait =
+    new WebDriverWait(driver, Duration.ofSeconds(10))
 
 }
