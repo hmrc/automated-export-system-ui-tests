@@ -22,7 +22,7 @@ import uk.gov.hmrc.ui.conf.TestConfiguration
 
 class SampleSpec extends BaseSpec {
 
-  Feature("UI smoke and environment connectivity validation") {
+  Feature("UI smoke test and environment connectivity validation") {
 
     Scenario("Open a page") {
 
