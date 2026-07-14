@@ -16,11 +16,13 @@
 
 package uk.gov.hmrc.test.ui.specs
 
+import org.openqa.selenium.By
 import uk.gov.hmrc.selenium.webdriver.Driver
+import uk.gov.hmrc.ui.conf.TestConfiguration
 
 class SampleSpec extends BaseSpec {
 
-  Feature("Basic UI test") {
+  Feature("UI smoke and environment connectivity validation") {
 
     Scenario("Open a page") {
 
@@ -31,6 +33,26 @@ class SampleSpec extends BaseSpec {
 
       Then("page title should contain Google")
       Driver.instance.getTitle should include("Google")
+    }
+
+    Scenario("Application can be reached using configured environment") {
+
+      Given("browser is running")
+
+      When("user navigates to configured environment")
+
+      Driver.instance.get(
+        TestConfiguration.url("automated-export-system-frontend")
+      )
+
+      Then("the automated export system frontend page should be displayed")
+
+      val serviceHeader =
+        Driver.instance
+          .findElement(By.className("govuk-header__service-name"))
+          .getText
+
+      serviceHeader shouldBe "automated-export-system-frontend"
     }
   }
 }
