@@ -7,5 +7,5 @@ sbt \
 -Dbrowser="${BROWSER:=chrome}" \
 -Denvironment="${ENVIRONMENT:=qa}" \
 -Dbrowser.option.headless=true \
-"testOnly uk.gov.hmrc.test.ui.specs.*"
+"testOnly uk.gov.hmrc.ui.specs.*"
 testReport

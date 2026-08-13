@@ -20,8 +20,6 @@ import uk.gov.hmrc.ui.pages.CommonPages.Page
 
 object SubmissionConfirmationPage extends Page {
 
-  // Temporary
-
-  override def title(args: String*): String = "Sorry, there is a problem with the service"
+  override def title(args: String*): String = "IE507(a) pre-notification received"
 
 }
