@@ -16,12 +16,13 @@
 
 package uk.gov.hmrc.test.ui.util
 
-import org.openqa.selenium.WebDriver
-import org.openqa.selenium.support.ui.{FluentWait, WebDriverWait}
+import org.openqa.selenium.{By, WebDriver, WebElement}
+import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, WebDriverWait}
+import uk.gov.hmrc.ui.driver.Driver
 
 import java.time.Duration
 
-trait DriverHelper {
+trait DriverHelper extends Driver {
 
   def fluentWait(implicit driver: WebDriver): FluentWait[WebDriver] =
     new FluentWait(driver)
@@ -32,4 +33,9 @@ trait DriverHelper {
   def explicitWait(implicit driver: WebDriver): WebDriverWait =
     new WebDriverWait(driver, Duration.ofSeconds(10))
 
+  def find(by: By)(implicit driver: WebDriver): WebElement =
+    fluentWait.until(ExpectedConditions.presenceOfElementLocated(by))
+
+  def click(by: By)(implicit driver: WebDriver): Unit =
+    find(by).click()
 }
