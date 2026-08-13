@@ -25,7 +25,8 @@ object TestConfiguration {
   val defaultConfig: Config = config.getConfig("local")
   val envConfig: Config     = config.getConfig(env).withFallback(defaultConfig)
 
-  private val serviceName = "automated-export-system-frontend"
+  lazy val automatedExportSystemFrontend = "automated-export-system-frontend"
+  lazy val authorityWizardPage: String   = s"${url("auth-login-stub")}/gg-sign-in"
 
   def baseUrl(service: String): String =
     env match {
@@ -37,7 +38,7 @@ object TestConfiguration {
     s"${baseUrl(service)}${serviceRoute(service)}"
 
   def fullUrl(path: String): String =
-    s"${url(serviceName)}$path"
+    s"${url(automatedExportSystemFrontend)}$path"
 
   def environmentHost: String =
     envConfig.getString("services.host")
