@@ -22,11 +22,11 @@ import uk.gov.hmrc.ui.steps.LoginSteps.*
 import uk.gov.hmrc.ui.steps.SubmissionSteps.*
 import uk.gov.hmrc.ui.pages.Submission.*
 
-class SubmissionSpec extends BaseSpec {
+class SubmissionNoDiscrepanciesSpec extends BaseSpec {
 
-  Feature("End to End IE507a Submission Journey with no discrepancies") {
+  Feature("IE507(a) Submission with no discrepancies") {
 
-    Scenario("Complete a IE507a Declaration") {
+    Scenario("E2E Journey: Complete a IE507(a) Declaration with no discrepancies") {
 
       Given("I login with ID GB12345679")
       andILoginWithIDX("GB12345679")
@@ -41,7 +41,7 @@ class SubmissionSpec extends BaseSpec {
       When("I click on the 'Submit an IE507(a) Submission'")
       startNewSubmissionByLink()
 
-      Then("I am redirected to the page titled 'What is the Movement Reference Number(MRN)?'")
+      Then("I am on the page titled 'What is the Movement Reference Number(MRN)?'")
       MRNPage.loadPage()
 
       When("I enter a valid MRN")
@@ -50,7 +50,7 @@ class SubmissionSpec extends BaseSpec {
       And("I click the Continue button")
       MRNPage.submitPageByType()
 
-      Then("I am redirected to the page titled 'What is the Declaration Unique Consignment Reference (DUCR)?'")
+      Then("I am on the page titled 'What is the Declaration Unique Consignment Reference (DUCR)?'")
       DUCRPage.loadPage()
 
       When("I enter a valid DUCR")
@@ -59,7 +59,7 @@ class SubmissionSpec extends BaseSpec {
       And("I click the Continue button")
       DUCRPage.submitPageByType()
 
-      Then("I am redirected to the page titled 'Is this part of a consolidation?'")
+      Then("I am on the page titled 'Is this part of a consolidation?'")
       IsThisConsolidationPage.loadPage()
 
       When("I click 'No - this is a standalone consignment")
@@ -68,7 +68,7 @@ class SubmissionSpec extends BaseSpec {
       And("I click the Continue button")
       IsThisConsolidationPage.submitPageByType()
 
-      Then("I am redirected to the page titled 'Where do you expect the goods to exit the UK?'")
+      Then("I am on the page titled 'Where do you expect the goods to exit the UK?'")
       ExitOfGoodsPage.loadPage()
 
       When("I select Belfast Office from the dropdown")
@@ -77,7 +77,7 @@ class SubmissionSpec extends BaseSpec {
       And("I click the Continue button")
       ExitOfGoodsPage.submitPageByType()
 
-      Then("I am redirected to the page titled 'Is this a split exit?'")
+      Then("I am on the page titled 'Is this a split exit?'")
       IsThisSplitExitPage.loadPage()
 
       When("I click No")
@@ -86,7 +86,7 @@ class SubmissionSpec extends BaseSpec {
       And("I click the Continue button")
       IsThisSplitExitPage.submitPageByType()
 
-      Then("I am redirected to the discrepancies page")
+      Then("I am on the discrepancies page")
       AreThereAnyDiscrepanciesPage.loadPage()
 
       When("I select No")
@@ -95,7 +95,7 @@ class SubmissionSpec extends BaseSpec {
       And("I click the Continue button")
       AreThereAnyDiscrepanciesPage.submitPageByType()
 
-      Then("I am redirected to the Check Your Answers page")
+      Then("I am on the Check Your Answers page")
       CheckYourAnswersPage.loadPage()
 
       When("I accept and submit the declaration")

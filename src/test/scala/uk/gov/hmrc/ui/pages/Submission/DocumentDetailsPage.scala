@@ -14,27 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.CommonPages
+package uk.gov.hmrc.ui.pages.Submission
 
-trait StringPage extends Page {
+import uk.gov.hmrc.ui.pages.CommonPages.StringPage
 
-  def fillInput(answer: String): this.type = {
-    fillInputById("value", answer)
-    this
-  }
+object DocumentDetailsPage extends StringPage {
 
-  protected def randomAlphaNumericString(length: Int): String = {
-    val chars = ('a' to 'z') ++ ('A' to 'Z') ++ ('0' to '9')
+  override def title(args: String*): String = "Document details"
 
-    def randomStringFromCharList(chars: Seq[Char]): String = {
-      val sb = new StringBuilder
-      for (_ <- 1 to length) {
-        val randomNum = util.Random.nextInt(chars.length)
-        sb.append(chars(randomNum))
-      }
-      sb.toString
-    }
-
-    randomStringFromCharList(chars)
-  }
 }

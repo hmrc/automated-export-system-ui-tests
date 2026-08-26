@@ -14,27 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.CommonPages
+package uk.gov.hmrc.ui.pages.Submission
 
-trait StringPage extends Page {
+import uk.gov.hmrc.ui.pages.CommonPages.StringPage
 
-  def fillInput(answer: String): this.type = {
-    fillInputById("value", answer)
-    this
-  }
+object DUCRGoodsPage extends StringPage {
 
-  protected def randomAlphaNumericString(length: Int): String = {
-    val chars = ('a' to 'z') ++ ('A' to 'Z') ++ ('0' to '9')
+  override def title(args: String*): String =
+    "What is the Declaration Unique Consignment Reference (DUCR) for these goods?"
 
-    def randomStringFromCharList(chars: Seq[Char]): String = {
-      val sb = new StringBuilder
-      for (_ <- 1 to length) {
-        val randomNum = util.Random.nextInt(chars.length)
-        sb.append(chars(randomNum))
-      }
-      sb.toString
-    }
-
-    randomStringFromCharList(chars)
-  }
 }

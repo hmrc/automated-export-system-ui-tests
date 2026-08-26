@@ -32,9 +32,9 @@ object SubmissionSteps {
 
   def startNewSubmissionByButton(): Unit =
     AutomatedExportSystemPage
-      .submitPage()
+      .clickByPartialLinkText("Start now")
 
-  // Office of exit page
+  // Office of exit dropdown
 
   def selectCustomsOffice(office: String): Unit =
     ExitOfGoodsPage.selectById("value", office)

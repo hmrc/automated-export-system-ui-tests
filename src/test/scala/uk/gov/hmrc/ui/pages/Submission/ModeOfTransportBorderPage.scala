@@ -14,27 +14,23 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.CommonPages
+package uk.gov.hmrc.ui.pages.Submission
 
-trait StringPage extends Page {
+import uk.gov.hmrc.ui.pages.CommonPages.RadioPage
 
-  def fillInput(answer: String): this.type = {
-    fillInputById("value", answer)
-    this
-  }
+object ModeOfTransportBorderPage extends RadioPage {
 
-  protected def randomAlphaNumericString(length: Int): String = {
-    val chars = ('a' to 'z') ++ ('A' to 'Z') ++ ('0' to '9')
+  override def title(args: String*): String = "How will the goods cross the border?"
 
-    def randomStringFromCharList(chars: Seq[Char]): String = {
-      val sb = new StringBuilder
-      for (_ <- 1 to length) {
-        val randomNum = util.Random.nextInt(chars.length)
-        sb.append(chars(randomNum))
-      }
-      sb.toString
+  override def select(answer: String): this.type = {
+    val value = answer match {
+      case "Sea"  => "sea"
+      case "Rail" => "rail"
+      case "Road" => "road"
+      case "Air"  => "air"
+      case other  => throw new IllegalArgumentException(s"Unknown mode of transport option: $other")
     }
-
-    randomStringFromCharList(chars)
+    clickRadioBtn(value)
+    this
   }
 }
