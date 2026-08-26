@@ -44,6 +44,14 @@ trait BasePage extends DriverHelper {
     select.selectByVisibleText(text)
   }
 
+  def fillInputById(id: String, text: String): Unit = {
+    val input = findById(id)
+    clearInput(input)
+    input.sendKeys(text)
+  }
+
+  def clearInput(input: WebElement): Unit = input.clear()
+
   // Accept & Submit
 
   def clickAcceptAndSubmit(): Unit =

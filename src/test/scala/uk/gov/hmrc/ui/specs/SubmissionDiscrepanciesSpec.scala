@@ -66,7 +66,7 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       IsThisConsolidationPage.select("Yes")
 
       And("I enter the MUCR")
-      IsThisConsolidationPage.findById("mucr").sendKeys("MUCR12345")
+      IsThisConsolidationPage.fillInputById("mucr", "MUCR12345")
 
       And("I click the Continue button")
       IsThisConsolidationPage.submitPageByType()
@@ -215,7 +215,7 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       When("I accept and submit the declaration")
       CheckYourAnswersPage.clickAcceptAndSubmit()
 
-//    Removed temporarily until wiring up of journey is completed by devs
+//    Removed temporarily until wiring up of journey is completed by devs (AES-672/AES-674)
 //      Then("I am shown the submission confirmation page")
 //      SubmissionConfirmationPage.loadPage()
 

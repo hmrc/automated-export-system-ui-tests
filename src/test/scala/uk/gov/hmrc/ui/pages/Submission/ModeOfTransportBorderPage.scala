@@ -28,6 +28,7 @@ object ModeOfTransportBorderPage extends RadioPage {
       case "Rail" => "rail"
       case "Road" => "road"
       case "Air"  => "air"
+      case other  => throw new IllegalArgumentException(s"Unknown mode of transport option: $other")
     }
     clickRadioBtn(value)
     this

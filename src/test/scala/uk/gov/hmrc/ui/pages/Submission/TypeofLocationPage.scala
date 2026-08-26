@@ -28,6 +28,7 @@ object TypeofLocationPage extends RadioPage {
       case "Authorised place"    => "authorisedPlace"
       case "Approved place"      => "approvedPlace"
       case "Other"               => "other"
+      case other                 => throw new IllegalArgumentException(s"Unknown type of location option: $other")
     }
     clickRadioBtn(value)
     this
