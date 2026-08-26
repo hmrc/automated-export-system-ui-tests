@@ -16,7 +16,7 @@ docker run --rm -d -p 27017:27017 --name mongo percona/percona-server-mongodb:6.
 Start the automated export services as follows:
 
 ```bash
-sm2 --start AUTOMATED_EXPORT_SERVICE_ALL
+sm2 --start sm2 --start AUTOMATED_EXPORT_SYSTEM_UI_TESTS
 ```
 
 ## Tests
