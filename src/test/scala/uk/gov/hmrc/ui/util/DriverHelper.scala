@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.test.ui.util
+package uk.gov.hmrc.ui.util
 
 import org.openqa.selenium.{By, WebDriver, WebElement}
 import org.openqa.selenium.support.ui.{ExpectedConditions, FluentWait, WebDriverWait}
@@ -37,5 +37,5 @@ trait DriverHelper extends Driver {
     fluentWait.until(ExpectedConditions.presenceOfElementLocated(by))
 
   def click(by: By)(implicit driver: WebDriver): Unit =
-    find(by).click()
+    fluentWait.until(ExpectedConditions.elementToBeClickable(by)).click()
 }
