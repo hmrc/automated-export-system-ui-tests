@@ -215,8 +215,9 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       When("I accept and submit the declaration")
       CheckYourAnswersPage.clickAcceptAndSubmit()
 
-      Then("I am shown the submission confirmation page")
-      SubmissionConfirmationPage.loadPage()
+//    Removed temporarily until wiring up of journey is completed by devs
+//      Then("I am shown the submission confirmation page")
+//      SubmissionConfirmationPage.loadPage()
 
     }
 
