@@ -1,8 +1,7 @@
-**This is the template README. Please update this with project specific content.**
 
 # automated-export-system-ui-tests
 
-<SERVICE_NAME> UI journey tests.
+UI journey test suite for the Automated Export System
 
 ## Pre-requisites
 
@@ -14,10 +13,10 @@ Start Mongo Docker container as follows:
 docker run --rm -d -p 27017:27017 --name mongo percona/percona-server-mongodb:6.0
 ```
 
-Start `<SERVICE_MANAGER_PROFILE>` services as follows:
+Start the automated export services as follows:
 
 ```bash
-sm2 --start <SERVICE_MANAGER_PROFILE>
+sm2 --start sm2 --start AUTOMATED_EXPORT_SYSTEM_UI_TESTS
 ```
 
 ## Tests
