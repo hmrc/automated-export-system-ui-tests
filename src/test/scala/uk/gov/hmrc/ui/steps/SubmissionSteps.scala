@@ -34,9 +34,13 @@ object SubmissionSteps {
     AutomatedExportSystemPage
       .clickByPartialLinkText("Start now")
 
-  // Office of exit dropdown
+  // Office of Exit dropdown
 
   def selectCustomsOffice(office: String): Unit =
     ExitOfGoodsPage.selectById("value", office)
 
+  // Type of Location dropdown
+
+  def selectLocationType(locationType: String): Unit =
+    IdentifyLocationPage.selectById("locationType", locationType)
 }

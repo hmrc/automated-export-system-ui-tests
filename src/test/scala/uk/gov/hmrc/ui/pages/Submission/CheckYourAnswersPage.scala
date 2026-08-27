@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages.CommonPages
+package uk.gov.hmrc.ui.pages.Submission
+
+import uk.gov.hmrc.ui.pages.CommonPages.Page
 
 object CheckYourAnswersPage extends Page {
 

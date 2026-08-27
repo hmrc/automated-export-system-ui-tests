@@ -17,7 +17,6 @@
 package uk.gov.hmrc.ui.specs
 
 import uk.gov.hmrc.test.ui.specs.BaseSpec
-import uk.gov.hmrc.ui.pages.CommonPages.*
 import uk.gov.hmrc.ui.steps.LoginSteps.*
 import uk.gov.hmrc.ui.steps.SubmissionSteps.*
 import uk.gov.hmrc.ui.pages.Submission.*
@@ -54,7 +53,7 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
       DUCRPage.loadPage()
 
       When("I enter a valid DUCR")
-      DUCRPage.fillInput("7GB000000000000")
+      DUCRPage.fillInput("5GB000000000000-12345")
 
       And("I click the Continue button")
       DUCRPage.submitPageByType()
@@ -81,10 +80,10 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
       IdentifyLocationPage.loadPage()
 
       When("I enter valid location details")
-      IdentifyLocationPage.fillInputById("locationType", "LOC1")
+      selectLocationType("Authorisation number")
       IdentifyLocationPage.fillInputById("unlocode", "UN123")
-      IdentifyLocationPage.fillInputById("locationAdditionalIdentifier", "L1234")
-      IdentifyLocationPage.fillInputById("authorisationReferenceNumber", "AUTHC1")
+      IdentifyLocationPage.fillInputById("locationAdditionalIdentifier", "AD01")
+      IdentifyLocationPage.fillInputById("authorisationReferenceNumber", "AUTH12345")
 
       And("I click the Continue button")
       IdentifyLocationPage.submitPageByType()
