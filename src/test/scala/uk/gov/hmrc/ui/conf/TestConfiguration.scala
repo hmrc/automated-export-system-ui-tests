@@ -25,7 +25,7 @@ object TestConfiguration {
   val defaultConfig: Config = config.getConfig("local")
   val envConfig: Config     = config.getConfig(env).withFallback(defaultConfig)
 
-  lazy val automatedExportSystemFrontend = "automated-export-system-frontend"
+  lazy val automatedExportSystemFrontend = "automated-export-system"
   lazy val authorityWizardPage: String   = s"${url("auth-login-stub")}/gg-sign-in"
 
   def baseUrl(service: String): String =
