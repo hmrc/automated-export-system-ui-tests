@@ -59,7 +59,7 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       And("I click the Continue button")
       DUCRPage.submitPageByType()
 
-      Then("I am redirected to the page titled 'Is this part of a consolidation?'")
+      Then("I am on the page titled 'Is this part of a consolidation?'")
       IsThisConsolidationPage.loadPage()
 
       When("I click 'Yes - enter the MUCR'")
@@ -70,6 +70,27 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
 
       And("I click the Continue button")
       IsThisConsolidationPage.submitPageByType()
+
+      Then("I am on the page titled 'What type of location are the goods at?'")
+      TypeofLocationPage.loadPage()
+
+      When("I click 'Approved place' option")
+      TypeofLocationPage.select("Approved place")
+
+      And("I click the Continue button")
+      TypeofLocationPage.submitPageByType()
+
+      Then("I am on the page titled 'Identify the location'")
+      IdentifyLocationPage.loadPage()
+
+      When("I enter valid location details")
+      IdentifyLocationPage.fillInputById("locationType", "LOC1")
+      IdentifyLocationPage.fillInputById("unlocode", "UN123")
+      IdentifyLocationPage.fillInputById("locationAdditionalIdentifier", "L1234")
+      IdentifyLocationPage.fillInputById("authorisationReferenceNumber", "AUTHC1")
+
+      And("I click the Continue button")
+      IdentifyLocationPage.submitPageByType()
 
       Then("I am on the page titled 'Where do you expect the goods to exit the UK?'")
       ExitOfGoodsPage.loadPage()
@@ -98,24 +119,6 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       And("I click the Continue button")
       ModeOfTransportBorderPage.submitPageByType()
 
-      Then("I am on the page titled 'What is the Declaration Unique Consignment Reference (DUCR) for these goods?'")
-      DUCRGoodsPage.loadPage()
-
-      When("I enter a valid DUCR")
-      DUCRGoodsPage.fillInput("7GB000000000000")
-
-      And("I click the Continue button")
-      DUCRGoodsPage.submitPageByType()
-
-      Then("I am on the page titled 'What is the Master Unique Consignment Reference (MUCR) for these goods?'")
-      MUCRPage.loadPage()
-
-      When("I enter a valid MUCR")
-      MUCRPage.fillInput("MUCR12345")
-
-      And("I click the Continue button")
-      MUCRPage.submitPageByType()
-
       Then("I am on the page titled 'Container details'")
       ContainerDetailsPage.loadPage()
 
@@ -143,27 +146,6 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
 
       And("I click the Continue button")
       DeclarationGoodsRefPage.submitPageByType()
-
-      Then("I am on the page titled 'What type of location are the goods at?'")
-      TypeofLocationPage.loadPage()
-
-      When("I click 'Approved place' option")
-      TypeofLocationPage.select("Approved place")
-
-      And("I click the Continue button")
-      TypeofLocationPage.submitPageByType()
-
-      Then("I am on the page titled 'Identify the location'")
-      IdentifyLocationPage.loadPage()
-
-      When("I enter valid location details")
-      IdentifyLocationPage.fillInputById("locationType", "LOC1")
-      IdentifyLocationPage.fillInputById("unlocode", "UN123")
-      IdentifyLocationPage.fillInputById("locationAdditionalIdentifier", "L1234")
-      IdentifyLocationPage.fillInputById("authorisationReferenceNumber", "AUTHC1")
-
-      And("I click the Continue button")
-      IdentifyLocationPage.submitPageByType()
 
       Then("I am on the page titled 'Transport across the border'")
       TransportAcrossBorderPage.loadPage()
@@ -209,7 +191,7 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       And("I click the Continue button")
       PackingDetailsPage.submitPageByType()
 
-      Then("I am redirected to the Check Your Answers page")
+      Then("I am on the Check Your Answers page")
       CheckYourAnswersPage.loadPage()
 
       When("I accept and submit the declaration")

@@ -68,6 +68,27 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
       And("I click the Continue button")
       IsThisConsolidationPage.submitPageByType()
 
+      Then("I am on the page titled 'What type of location are the goods at?'")
+      TypeofLocationPage.loadPage()
+
+      When("I click 'Designated location' option")
+      TypeofLocationPage.select("Designated location")
+
+      And("I click the Continue button")
+      TypeofLocationPage.submitPageByType()
+
+      Then("I am on the page titled 'Identify the location'")
+      IdentifyLocationPage.loadPage()
+
+      When("I enter valid location details")
+      IdentifyLocationPage.fillInputById("locationType", "LOC1")
+      IdentifyLocationPage.fillInputById("unlocode", "UN123")
+      IdentifyLocationPage.fillInputById("locationAdditionalIdentifier", "L1234")
+      IdentifyLocationPage.fillInputById("authorisationReferenceNumber", "AUTHC1")
+
+      And("I click the Continue button")
+      IdentifyLocationPage.submitPageByType()
+
       Then("I am on the page titled 'Where do you expect the goods to exit the UK?'")
       ExitOfGoodsPage.loadPage()
 
