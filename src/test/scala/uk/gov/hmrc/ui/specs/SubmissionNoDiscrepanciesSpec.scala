@@ -30,10 +30,6 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
       Given("I login with ID GB12345679")
       andILoginWithIDX("GB12345679")
 
-      // Temporary until Configuration is amended
-      And("I click the 'IE507(a) link' on the 'Sorry, service is down' page")
-      clickServiceLink()
-
       And("I am on the page titled 'Submit an IE507(a) Arrival at Exit pre-notification'")
       AutomatedExportSystemPage.loadPage()
 
