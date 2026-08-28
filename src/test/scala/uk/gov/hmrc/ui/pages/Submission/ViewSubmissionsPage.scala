@@ -18,8 +18,15 @@ package uk.gov.hmrc.ui.pages.Submission
 
 import uk.gov.hmrc.ui.pages.CommonPages.Page
 
-object SubmissionConfirmationPage extends Page {
-  override def title(args: String*): String = "IE507(a) pre-notification received"
+object ViewSubmissionsPage extends Page {
+  override def title(args: String*): String = "Your IE507(a) submissions"
 
-  def clickViewYourSubmissions(): Unit = clickByPartialLinkText("View your submissions")
+  def assertSubmissionDetails(mrn: String, officeOfExit: String, status: String): Unit = {
+    checkForContent(mrn)
+    checkForContent(officeOfExit)
+    checkForContent(status)
+  }
+
+  def assertNoSubmissionsMessage(): Unit =
+    checkForContent("You have no IE507(a) submissions")
 }

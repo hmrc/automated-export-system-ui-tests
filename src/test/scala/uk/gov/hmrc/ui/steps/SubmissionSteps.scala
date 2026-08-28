@@ -15,32 +15,30 @@
  */
 
 package uk.gov.hmrc.ui.steps
-
 import uk.gov.hmrc.ui.pages.Submission.*
-
 object SubmissionSteps {
-
-  // Temporary until Configuration is corrected
-  def clickServiceLink(): Unit =
-    AutomatedExportSystemPage
-      .clickByPartialLinkText("IE507(a) Arrival at Exit pre-notification")
-
   // Homepage
-  def startNewSubmissionByLink(): Unit =
+  def startNewSubmissionByLink(): Unit                                                    =
     AutomatedExportSystemPage
       .clickByPartialLinkText("Submit a new IE507(a) pre-notification")
-
-  def startNewSubmissionByButton(): Unit =
+  def startNewSubmissionByButton(): Unit                                                  =
     AutomatedExportSystemPage
       .clickByPartialLinkText("Start now")
-
+  def viewExistingSubmissionsFromHomepage(): Unit                                         =
+    AutomatedExportSystemPage
+      .clickByPartialLinkText("View, change or cancel an existing submission")
   // Office of Exit dropdown
-
-  def selectCustomsOffice(office: String): Unit =
+  def selectCustomsOffice(office: String): Unit                                           =
     ExitOfGoodsPage.selectById("value", office)
-
   // Type of Location dropdown
-
-  def selectLocationType(locationType: String): Unit =
+  def selectLocationType(locationType: String): Unit                                      =
     IdentifyLocationPage.selectById("locationType", locationType)
+  // Confirmation page
+  def viewMySubmissions(): Unit                                                           =
+    SubmissionConfirmationPage.clickViewYourSubmissions()
+  // View submissions page assertions
+  def iCanSeeMySubmissionDetails(mrn: String, officeOfExit: String, status: String): Unit =
+    ViewSubmissionsPage.assertSubmissionDetails(mrn, officeOfExit, status)
+  def iSeeNoSubmissionsMessage(): Unit                                                    =
+    ViewSubmissionsPage.assertNoSubmissionsMessage()
 }
