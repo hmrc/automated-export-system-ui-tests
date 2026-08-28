@@ -17,10 +17,6 @@
 package uk.gov.hmrc.ui.steps
 import uk.gov.hmrc.ui.pages.Submission.*
 object SubmissionSteps {
-  // Temporary until Configuration is corrected
-  def clickServiceLink(): Unit                                                            =
-    AutomatedExportSystemPage
-      .clickByPartialLinkText("IE507(a) Arrival at Exit pre-notification")
   // Homepage
   def startNewSubmissionByLink(): Unit                                                    =
     AutomatedExportSystemPage
