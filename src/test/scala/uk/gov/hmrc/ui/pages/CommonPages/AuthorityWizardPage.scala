@@ -28,7 +28,7 @@ object AuthorityWizardPage extends Page {
   }
 
   def fillInputs(eoriNumber: String): this.type = {
-    val redirectionUrl = TestConfiguration.url("automated-export-system")
+    val redirectionUrl = TestConfiguration.url(TestConfiguration.automatedExportSystemFrontend)
     findById("redirectionUrl").sendKeys(redirectionUrl)
     findById("credentialStrength").sendKeys("strong")
     findById("confidenceLevel").sendKeys("50")
