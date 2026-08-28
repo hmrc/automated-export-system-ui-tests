@@ -25,7 +25,16 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
 
   Feature("IE507(a) Submission with no discrepancies") {
 
-    Scenario("E2E Journey: Complete a IE507(a) Declaration with no discrepancies") {
+    Scenario("E2E Journey: Complete a IE507(a) Declaration with no discrepancies, then view it in the dashboard") {
+
+      val mrn                          = "26GB0000X6524786A9"
+      val ducr                         = "5GB000000000000-12345"
+      val locationQualifier            = "Authorisation number"
+      val unlocode                     = "UN123"
+      val locationAdditionalIdentifier = "AD01"
+      val authorisationReferenceNumber = "AUTH12345"
+      val officeOfExit                 = "Belfast (GB000051)"
+      val status                       = "Awaiting decision" // backend assigns this status to every new submission by default
 
       Given("I login with ID GB12345679")
       andILoginWithIDX("GB12345679")
@@ -40,7 +49,7 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
       MRNPage.loadPage()
 
       When("I enter a valid MRN")
-      MRNPage.fillInput("26GB0000X6524786A9")
+      MRNPage.fillInput(mrn)
 
       And("I click the Continue button")
       MRNPage.submitPageByType()
@@ -49,7 +58,7 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
       DUCRPage.loadPage()
 
       When("I enter a valid DUCR")
-      DUCRPage.fillInput("5GB000000000000-12345")
+      DUCRPage.fillInput(ducr)
 
       And("I click the Continue button")
       DUCRPage.submitPageByType()
@@ -76,10 +85,10 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
       IdentifyLocationPage.loadPage()
 
       When("I enter valid location details")
-      selectLocationType("Authorisation number")
-      IdentifyLocationPage.fillInputById("unlocode", "UN123")
-      IdentifyLocationPage.fillInputById("locationAdditionalIdentifier", "AD01")
-      IdentifyLocationPage.fillInputById("authorisationReferenceNumber", "AUTH12345")
+      selectLocationType(locationQualifier)
+      IdentifyLocationPage.fillInputById("unlocode", unlocode)
+      IdentifyLocationPage.fillInputById("locationAdditionalIdentifier", locationAdditionalIdentifier)
+      IdentifyLocationPage.fillInputById("authorisationReferenceNumber", authorisationReferenceNumber)
 
       And("I click the Continue button")
       IdentifyLocationPage.submitPageByType()
@@ -88,7 +97,7 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
       ExitOfGoodsPage.loadPage()
 
       When("I select Belfast Office from the dropdown")
-      selectCustomsOffice("Belfast (GB000051)")
+      selectCustomsOffice(officeOfExit)
 
       And("I click the Continue button")
       ExitOfGoodsPage.submitPageByType()
@@ -120,8 +129,36 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
       Then("I am shown the submission confirmation page")
       SubmissionConfirmationPage.loadPage()
 
+      When("I click 'View your submissions'")
+      viewMySubmissions()
+
+      Then("I am on the page titled 'Your IE507(a) submissions'")
+      ViewSubmissionsPage.loadPage()
+
+      And("I can see my submitted IE507(a) notification with the correct details")
+      iCanSeeMySubmissionDetails(mrn, officeOfExit, status)
+
     }
 
-  }
+    Scenario("View submissions page shows empty state for an EORI with no submissions") {
 
+      // unique per run to guarantee a clean EORI with no submission history
+      val eori = s"GB${System.currentTimeMillis().toString.takeRight(9)}"
+
+      Given(s"I login with a fresh EORI $eori")
+      andILoginWithIDX(eori)
+
+      And("I am on the page titled 'Submit an IE507(a) Arrival at Exit pre-notification'")
+      AutomatedExportSystemPage.loadPage()
+
+      When("I click 'View, change or cancel an existing submission'")
+      viewExistingSubmissionsFromHomepage()
+
+      Then("I am on the page titled 'Your IE507(a) submissions'")
+      ViewSubmissionsPage.loadPage()
+
+      And("I see the no submissions message")
+      iSeeNoSubmissionsMessage()
+    }
+  }
 }
