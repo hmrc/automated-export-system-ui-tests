@@ -192,6 +192,7 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
 
       When("I enter valid changed details")
       TellUsWhatChangedPage.fillInputById("declarationGoodsItemNumber", goodsItemNumber)
+      // Note to self: `declarationUniqueConsignmentReference` field is being filled with the `mucr` value, not a real DUCR. Works fine for the test but naming is confusing — revisit and either use a proper DUCR value or add a comment explaining why
       TellUsWhatChangedPage.fillInputById("declarationUniqueConsignmentReference", mucr)
       TellUsWhatChangedPage.fillInputById("newGrossMass", newGrossMass)
       TellUsWhatChangedPage.fillInputById("newNetMass", newNetMass)
