@@ -27,6 +27,30 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
 
     Scenario("E2E Journey: Submit a IE507(a) Declaration and declare a split discrepancy") {
 
+      val mrn                          = "26GB0000X6524786A9"
+      val ducr                         = "5GB000000000000-12345"
+      val mucr                         = "GB/000000000000-12345"
+      val locationQualifier            = "Authorisation number"
+      val unlocode                     = "UN123"
+      val locationAdditionalIdentifier = "AD01"
+      val authorisationReferenceNumber = "AUTH12345"
+      val officeOfExit                 = "Larne (GB000142)"
+      val containerId                  = "CONT1234567890123"
+      val numberOfSeals                = "2"
+      val sealIdentifier               = "SEAL123"
+      val goodsReference               = "123"
+      val transportType                = "10"
+      val transportIdNumber            = "IDNUMBER123"
+      val countryOfRegistration        = "GB"
+      val documentType                 = "1"
+      val documentReferenceNumber      = "1234"
+      val goodsItemNumber              = "4"
+      val newGrossMass                 = "30"
+      val newNetMass                   = "28"
+      val packagingCode                = "BX"
+      val numberOfPackages             = "3"
+      val shippingMarks                = "MARKS123"
+
       Given("I login with ID GB12345679")
       andILoginWithIDX("GB12345679")
 
@@ -40,7 +64,7 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       MRNPage.loadPage()
 
       When("I enter a valid MRN")
-      MRNPage.fillInput("26GB0000X6524786A9")
+      MRNPage.fillInput(mrn)
 
       And("I click the Continue button")
       MRNPage.submitPageByType()
@@ -49,7 +73,7 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       DUCRPage.loadPage()
 
       When("I enter a valid DUCR")
-      DUCRPage.fillInput("5GB000000000000-12345")
+      DUCRPage.fillInput(ducr)
 
       And("I click the Continue button")
       DUCRPage.submitPageByType()
@@ -61,7 +85,7 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       IsThisConsolidationPage.select("Yes")
 
       And("I enter the MUCR")
-      IsThisConsolidationPage.fillInputById("mucr", "GB/000000000000-12345")
+      IsThisConsolidationPage.fillInputById("mucr", mucr)
 
       And("I click the Continue button")
       IsThisConsolidationPage.submitPageByType()
@@ -79,10 +103,10 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       IdentifyLocationPage.loadPage()
 
       When("I enter valid location details")
-      selectLocationType("Authorisation number")
-      IdentifyLocationPage.fillInputById("unlocode", "UN123")
-      IdentifyLocationPage.fillInputById("locationAdditionalIdentifier", "AD01")
-      IdentifyLocationPage.fillInputById("authorisationReferenceNumber", "AUTH12345")
+      selectLocationType(locationQualifier)
+      IdentifyLocationPage.fillInputById("unlocode", unlocode)
+      IdentifyLocationPage.fillInputById("locationAdditionalIdentifier", locationAdditionalIdentifier)
+      IdentifyLocationPage.fillInputById("authorisationReferenceNumber", authorisationReferenceNumber)
 
       And("I click the Continue button")
       IdentifyLocationPage.submitPageByType()
@@ -91,7 +115,7 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       ExitOfGoodsPage.loadPage()
 
       When("I select Larne (GB000142) from the dropdown list")
-      selectCustomsOffice("Larne (GB000142)")
+      selectCustomsOffice(officeOfExit)
 
       And("I click the Continue button")
       ExitOfGoodsPage.submitPageByType()
@@ -118,8 +142,8 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       ContainerDetailsPage.loadPage()
 
       When("I enter container identification number & number of seals")
-      ContainerDetailsPage.fillInputById("containerId", "CONT1234567890123")
-      ContainerDetailsPage.fillInputById("numberOfSeals", "2")
+      ContainerDetailsPage.fillInputById("containerId", containerId)
+      ContainerDetailsPage.fillInputById("numberOfSeals", numberOfSeals)
 
       And("I click the Continue button")
       ContainerDetailsPage.submitPageByType()
@@ -128,7 +152,7 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       SealIdentifierPage.loadPage()
 
       When("I enter a valid seal identifier")
-      SealIdentifierPage.fillInput("SEAL123")
+      SealIdentifierPage.fillInput(sealIdentifier)
 
       And("I click the Continue button")
       SealIdentifierPage.submitPageByType()
@@ -137,7 +161,7 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       DeclarationGoodsRefPage.loadPage()
 
       When("I enter a valid reference")
-      DeclarationGoodsRefPage.fillInput("6GB536187624189-S458")
+      DeclarationGoodsRefPage.fillInput(goodsReference)
 
       And("I click the Continue button")
       DeclarationGoodsRefPage.submitPageByType()
@@ -146,9 +170,9 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       TransportAcrossBorderPage.loadPage()
 
       When("I enter valid transport details")
-      TransportAcrossBorderPage.fillInputById("transportType", "10")
-      TransportAcrossBorderPage.fillInputById("transportIdNumber", "IDNUMBER123")
-      TransportAcrossBorderPage.fillInputById("countryOfRegistration", "GB")
+      TransportAcrossBorderPage.fillInputById("transportType", transportType)
+      TransportAcrossBorderPage.fillInputById("transportIdNumber", transportIdNumber)
+      TransportAcrossBorderPage.fillInputById("countryOfRegistration", countryOfRegistration)
 
       And("I click the Continue button")
       TransportAcrossBorderPage.submitPageByType()
@@ -157,8 +181,8 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       DocumentDetailsPage.loadPage()
 
       When("I enter valid document details")
-      DocumentDetailsPage.fillInputById("documentType", "waybill")
-      DocumentDetailsPage.fillInputById("referenceNumber", "REF123")
+      DocumentDetailsPage.fillInputById("documentType", documentType)
+      DocumentDetailsPage.fillInputById("referenceNumber", documentReferenceNumber)
 
       And("I click the Continue button")
       DocumentDetailsPage.submitPageByType()
@@ -167,10 +191,10 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       TellUsWhatChangedPage.loadPage()
 
       When("I enter valid changed details")
-      TellUsWhatChangedPage.fillInputById("goodsItemNumber", "4")
-      TellUsWhatChangedPage.fillInputById("declarationUniqueConsignmentReference", "GB/000000000000-12345")
-      TellUsWhatChangedPage.fillInputById("newGrossMass", "30")
-      TellUsWhatChangedPage.fillInputById("newNetMass", "28")
+      TellUsWhatChangedPage.fillInputById("declarationGoodsItemNumber", goodsItemNumber)
+      TellUsWhatChangedPage.fillInputById("declarationUniqueConsignmentReference", mucr)
+      TellUsWhatChangedPage.fillInputById("newGrossMass", newGrossMass)
+      TellUsWhatChangedPage.fillInputById("newNetMass", newNetMass)
 
       And("I click the Continue button")
       TellUsWhatChangedPage.submitPageByType()
@@ -179,9 +203,9 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       PackingDetailsPage.loadPage()
 
       When("I enter the valid packing details")
-      PackingDetailsPage.fillInputById("packagingCode", "BX")
-      PackingDetailsPage.fillInputById("numberOfPackages", "3")
-      PackingDetailsPage.fillInputById("shippingMarks", "MARKS123")
+      PackingDetailsPage.fillInputById("packagingCode", packagingCode)
+      PackingDetailsPage.fillInputById("numberOfPackages", numberOfPackages)
+      PackingDetailsPage.fillInputById("shippingMarks", shippingMarks)
 
       And("I click the Continue button")
       PackingDetailsPage.submitPageByType()
@@ -192,12 +216,8 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       When("I accept and submit the declaration")
       CheckYourAnswersPage.clickAcceptAndSubmit()
 
-//    Removed temporarily until wiring up of journey is completed by devs (AES-674)
-//      Then("I am shown the submission confirmation page")
-//      SubmissionConfirmationPage.loadPage()
-
+      Then("I am shown the submission confirmation page")
+      SubmissionConfirmationPage.loadPage()
     }
-
   }
-
 }
