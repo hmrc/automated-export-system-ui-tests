@@ -19,6 +19,7 @@ package uk.gov.hmrc.ui.pages.CommonPages
 import org.openqa.selenium.support.ui.Select
 import org.openqa.selenium.{By, WebElement}
 import uk.gov.hmrc.selenium.webdriver.Driver
+import uk.gov.hmrc.ui.pages.Submission.MRNPage.click
 import uk.gov.hmrc.ui.util.DriverHelper
 
 trait BasePage extends DriverHelper {
@@ -56,5 +57,8 @@ trait BasePage extends DriverHelper {
 
   def clickAcceptAndSubmit(): Unit =
     clickByPartialLinkText("Accept and submit")
+
+  def clickByXPath(xpath: String): Unit =
+    click(By.xpath(xpath))
 
 }

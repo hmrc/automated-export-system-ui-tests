@@ -18,21 +18,11 @@ package uk.gov.hmrc.ui.pages.Submission
 
 import uk.gov.hmrc.ui.pages.CommonPages.Page
 
-object ViewSubmissionsPage extends Page {
+object SubmissionDetailsPage extends Page {
 
-  override def title(args: String*): String = "Your IE507(a) submissions"
+  override def title(args: String*): String = "IE507(a) pre-notification details"
 
-  def assertSubmissionDetails(mrn: String, officeOfExit: String, status: String): Unit = {
-    checkForContent(mrn)
-    checkForContent(officeOfExit)
-    checkForContent(status)
-  }
-
-  def assertNoSubmissionsMessage(): Unit =
-    checkForContent("You have no IE507(a) submissions")
-
-  // Click a submission with 'awaiting decision' state
-  def clickSubmission(mrn: String): Unit =
-    clickByXPath(s"//tr[.//a[text()='$mrn'] and contains(.,'Awaiting decision')]//a[text()='$mrn']")
+  def clickCancelSubmission(): Unit =
+    clickByPartialLinkText(" Cancel this submission ")
 
 }
