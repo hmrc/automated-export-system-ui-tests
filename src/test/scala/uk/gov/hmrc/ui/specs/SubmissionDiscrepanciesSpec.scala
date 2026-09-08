@@ -181,8 +181,8 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       DocumentDetailsPage.loadPage()
 
       When("I enter valid document details")
-      DocumentDetailsPage.fillInputById("documentType", "123")
-      DocumentDetailsPage.fillInputById("referenceNumber", "REF123")
+      DocumentDetailsPage.fillInputById("documentType", documentType)
+      DocumentDetailsPage.fillInputById("referenceNumber", documentReferenceNumber)
 
       And("I click the Continue button")
       DocumentDetailsPage.submitPageByType()
