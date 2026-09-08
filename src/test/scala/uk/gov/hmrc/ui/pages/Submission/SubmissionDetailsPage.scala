@@ -20,9 +20,9 @@ import uk.gov.hmrc.ui.pages.CommonPages.Page
 
 object SubmissionDetailsPage extends Page {
 
-  override def title(args: String*): String = "IE507(a) pre-notification details"
+  override def title(args: String*): String = "View submission"
 
   def clickCancelSubmission(): Unit =
-    clickByPartialLinkText(" Cancel this submission ")
+    clickByPartialLinkText("Cancel this submission")
 
 }
