@@ -29,17 +29,111 @@ class CancellationSpec extends BaseSpec {
 
     Scenario("E2E Journey: Successfully cancel a submitted IE507(a)") {
 
-      val mrn          = "26GB0000X6524786A9"
-      val officeOfExit = "Belfast (GB000051)"
+      // unique per run so this spec does not depend on another spec having run first (AES-870)
+      val eori                         = s"GB${System.currentTimeMillis().toString.takeRight(9)}"
+      val mrn                          = "26GB0000X6524786A9"
+      val ducr                         = "5GB000000000000-12345"
+      val locationQualifier            = "Authorisation number"
+      val unlocode                     = "UN123"
+      val locationAdditionalIdentifier = "AD01"
+      val authorisationReferenceNumber = "AUTH12345"
+      val officeOfExit                 = "Belfast (GB000051)"
 
-      Given("I login with ID GB12345679")
-      andILoginWithIDX("GB12345679")
+      Given(s"I login with ID $eori")
+      andILoginWithIDX(eori)
 
       And("I am on the page titled 'Submit an IE507(a) Arrival at Exit pre-notification'")
       AutomatedExportSystemPage.loadPage()
 
-      When("I click on the 'View,change or cancel an existing submission' link")
-      viewExistingSubmissionsFromHomepage()
+      When("I click on the 'Submit an IE507(a) Submission'")
+      startNewSubmissionByLink()
+
+      Then("I am on the page titled 'What is the Movement Reference Number(MRN)?'")
+      MRNPage.loadPage()
+
+      When("I enter a valid MRN")
+      MRNPage.fillInput(mrn)
+
+      And("I click the Continue button")
+      MRNPage.submitPageByType()
+
+      Then("I am on the page titled 'What is the Declaration Unique Consignment Reference (DUCR)?'")
+      DUCRPage.loadPage()
+
+      When("I enter a valid DUCR")
+      DUCRPage.fillInput(ducr)
+
+      And("I click the Continue button")
+      DUCRPage.submitPageByType()
+
+      Then("I am on the page titled 'Is this part of a consolidation?'")
+      IsThisConsolidationPage.loadPage()
+
+      When("I click 'No - this is a standalone consignment")
+      IsThisConsolidationPage.select("No")
+
+      And("I click the Continue button")
+      IsThisConsolidationPage.submitPageByType()
+
+      Then("I am on the page titled 'What type of location are the goods at?'")
+      TypeofLocationPage.loadPage()
+
+      When("I click 'Designated location' option")
+      TypeofLocationPage.select("Designated location")
+
+      And("I click the Continue button")
+      TypeofLocationPage.submitPageByType()
+
+      Then("I am on the page titled 'Identify the location'")
+      IdentifyLocationPage.loadPage()
+
+      When("I enter valid location details")
+      selectLocationType(locationQualifier)
+      IdentifyLocationPage.fillInputById("unlocode", unlocode)
+      IdentifyLocationPage.fillInputById("locationAdditionalIdentifier", locationAdditionalIdentifier)
+      IdentifyLocationPage.fillInputById("authorisationReferenceNumber", authorisationReferenceNumber)
+
+      And("I click the Continue button")
+      IdentifyLocationPage.submitPageByType()
+
+      Then("I am on the page titled 'Where do you expect the goods to exit the UK?'")
+      ExitOfGoodsPage.loadPage()
+
+      When("I select Belfast Office from the dropdown")
+      selectCustomsOffice(officeOfExit)
+
+      And("I click the Continue button")
+      ExitOfGoodsPage.submitPageByType()
+
+      Then("I am on the page titled 'Is this a split exit?'")
+      IsThisSplitExitPage.loadPage()
+
+      When("I click No")
+      IsThisSplitExitPage.select("No")
+
+      And("I click the Continue button")
+      IsThisSplitExitPage.submitPageByType()
+
+      Then("I am on the discrepancies page")
+      AreThereAnyDiscrepanciesPage.loadPage()
+
+      When("I select No")
+      AreThereAnyDiscrepanciesPage.select("No")
+
+      And("I click the Continue button")
+      AreThereAnyDiscrepanciesPage.submitPageByType()
+
+      Then("I am on the Check Your Answers page")
+      CheckYourAnswersPage.loadPage()
+
+      When("I accept and submit the declaration")
+      CheckYourAnswersPage.clickAcceptAndSubmit()
+
+      Then("I am shown the submission confirmation page")
+      SubmissionConfirmationPage.loadPage()
+
+      When("I click 'View your submissions'")
+      viewMySubmissions()
 
       Then("I am on the page titled 'Your IE507(a) submissions'")
       ViewSubmissionsPage.loadPage()
