@@ -27,7 +27,7 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
 
     Scenario("E2E Journey: Complete a IE507(a) Declaration with no discrepancies, then view it in the dashboard") {
 
-      val mrn                          = "26GB0000X6524786A9"
+      val mrn                          = s"26GB${System.currentTimeMillis().toString.takeRight(12)}A9"
       val ducr                         = "5GB000000000000-12345"
       val locationQualifier            = "Authorisation number"
       val unlocode                     = "UN123"
@@ -48,7 +48,7 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
       Then("I am on the page titled 'What is the Movement Reference Number(MRN)?'")
       MRNPage.loadPage()
 
-      When("I enter a valid MRN")
+      When(s"I enter a valid MRN $mrn")
       MRNPage.fillInput(mrn)
 
       And("I click the Continue button")
