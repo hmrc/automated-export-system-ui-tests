@@ -21,6 +21,25 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.{BeforeAndAfterEach, GivenWhenThen}
 import uk.gov.hmrc.selenium.webdriver.{Browser, Driver, ScreenshotOnFailure}
 
+import java.net.URI
+import java.net.http.{HttpClient, HttpRequest, HttpResponse}
+
+// use testonly/delete-all endpoint to clean up test data before each test run
+private object TestDataCleanup {
+
+  lazy val runOnce: Unit = {
+    val httpClient = HttpClient.newHttpClient()
+    val request    = HttpRequest
+      .newBuilder()
+      .uri(URI.create("http://localhost:5000/automated-export-system/test-only/delete-all"))
+      .GET()
+      .build()
+    httpClient.send(request, HttpResponse.BodyHandlers.discarding())
+    ()
+  }
+
+}
+
 trait BaseSpec
     extends AnyFeatureSpec
     with GivenWhenThen
@@ -30,6 +49,7 @@ trait BaseSpec
     with ScreenshotOnFailure {
 
   override def beforeEach(): Unit = {
+    TestDataCleanup.runOnce
     startBrowser()
     Driver.instance.manage().deleteAllCookies()
   }
