@@ -24,10 +24,7 @@ import uk.gov.hmrc.selenium.webdriver.{Browser, Driver, ScreenshotOnFailure}
 import java.net.URI
 import java.net.http.{HttpClient, HttpRequest, HttpResponse}
 
-// AES-856: runs exactly once across the whole JVM/test run, no matter how many suites
-// or scenarios trigger it. Scala's `lazy val` guarantees this - the first thread to
-// touch it runs the block, every other thread just gets the already-computed result.
-// This avoids wiping data mid-test that another suite is still relying on.
+// use testonly/delete-all endpoint to clean up test data before each test run
 private object TestDataCleanup {
 
   lazy val runOnce: Unit = {
