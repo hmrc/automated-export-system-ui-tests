@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.ui.specs
 
+import java.time.Duration
+
 import org.openqa.selenium.By
 import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
 import uk.gov.hmrc.selenium.webdriver.Driver
@@ -23,8 +25,6 @@ import uk.gov.hmrc.test.ui.specs.BaseSpec
 import uk.gov.hmrc.ui.steps.LoginSteps.*
 import uk.gov.hmrc.ui.steps.SubmissionSteps.*
 import uk.gov.hmrc.ui.pages.Submission.*
-
-import java.time.Duration
 
 class MrnDucrValidationSpec extends BaseSpec {
 
@@ -37,12 +37,12 @@ class MrnDucrValidationSpec extends BaseSpec {
   // invalid DUCR: "!" is not allowed by any DUCR pattern
   val invalidDucr = "abc123!"
 
-/*
- * The title doesn't change when the error page loads, so loadPage() alone
- * isn't a safe wait - it can return before the new page finishes loading,
- * causing a stale element. We wait for the error box instead, since it only
- * appears once the new page has actually loaded.
- */
+  /*
+   * The title doesn't change when the error page loads, so loadPage() alone
+   * isn't a safe wait - it can return before the new page finishes loading,
+   * causing a stale element. We wait for the error box instead, since it only
+   * appears once the new page has actually loaded.
+   */
   private def waitForErrorSummary(): Unit =
     new WebDriverWait(Driver.instance, Duration.ofSeconds(10))
       .until(ExpectedConditions.visibilityOfElementLocated(By.className("govuk-error-summary")))
@@ -65,6 +65,8 @@ class MrnDucrValidationSpec extends BaseSpec {
 
       When("I click the Continue button without entering an MRN")
       MRNPage.submitPageByType()
+
+      And("I wait for the error page to load")
       waitForErrorSummary()
 
       Then("I remain on the page titled 'What is the Movement Reference Number(MRN)?'")
@@ -94,6 +96,8 @@ class MrnDucrValidationSpec extends BaseSpec {
 
       And("I click the Continue button")
       MRNPage.submitPageByType()
+
+      And("I wait for the error page to load")
       waitForErrorSummary()
 
       Then("I remain on the page titled 'What is the Movement Reference Number(MRN)?'")
@@ -128,6 +132,8 @@ class MrnDucrValidationSpec extends BaseSpec {
 
       When("I click the Continue button without entering a DUCR")
       DUCRPage.submitPageByType()
+
+      And("I wait for the error page to load")
       waitForErrorSummary()
 
       Then("I remain on the page titled 'What is the Declaration Unique Consignment Reference (DUCR)?'")
@@ -166,6 +172,8 @@ class MrnDucrValidationSpec extends BaseSpec {
 
       And("I click the Continue button")
       DUCRPage.submitPageByType()
+
+      And("I wait for the error page to load")
       waitForErrorSummary()
 
       Then("I remain on the page titled 'What is the Declaration Unique Consignment Reference (DUCR)?'")
