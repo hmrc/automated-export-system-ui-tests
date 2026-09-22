@@ -22,9 +22,6 @@ import uk.gov.hmrc.ui.pages.Submission.SubmissionDetailsPage
 
 object CancellationSteps {
 
-  def clickSubmission(mrn: String): Unit =
-    ViewSubmissionsPage.clickSubmission(mrn)
-
   def clickCancelSubmissionButton(): Unit =
     SubmissionDetailsPage.clickCancelSubmission()
 

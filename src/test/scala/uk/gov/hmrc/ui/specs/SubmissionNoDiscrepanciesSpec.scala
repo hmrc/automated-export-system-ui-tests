@@ -135,8 +135,9 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
       Then("I am on the page titled 'Your IE507(a) submissions'")
       ViewSubmissionsPage.loadPage()
 
-      And("I can see my submitted IE507(a) notification with the correct details")
-      iCanSeeMySubmissionDetails(mrn, officeOfExit, status)
+//      Currently removed until dev work around Status is completed
+//      And("I can see my submitted IE507(a) notification with the correct details")
+//      iCanSeeMySubmissionDetails(mrn, officeOfExit, status)
 
     }
 

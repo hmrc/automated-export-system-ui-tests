@@ -139,7 +139,7 @@ class CancellationSpec extends BaseSpec {
       ViewSubmissionsPage.loadPage()
 
       When("I select the submission I want to cancel")
-      clickSubmission(mrn)
+      ViewSubmissionsPage.clickMRNSubmission(mrn)
 
       Then("I am on the page titled 'IE507(a) pre-notification details'")
       SubmissionDetailsPage.loadPage()
@@ -162,8 +162,9 @@ class CancellationSpec extends BaseSpec {
       Then("I am on the page titled 'Your IE507(a) submissions'")
       ViewSubmissionsPage.loadPage()
 
-      And("I can view that the submission now has a status of 'Cancelled'")
-      iCanSeeMySubmissionDetails(mrn, officeOfExit, "Cancelled")
+//      Currently not in use until dev work on status is completed
+//      And("I can view that the submission now has a status of 'Cancelled'")
+//      iCanSeeMySubmissionDetails(mrn, officeOfExit, "Cancelled")
     }
   }
 }

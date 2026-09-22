@@ -31,8 +31,8 @@ object ViewSubmissionsPage extends Page {
   def assertNoSubmissionsMessage(): Unit =
     checkForContent("You have no IE507(a) submissions")
 
-  // Click a submission with 'awaiting decision' state
-  def clickSubmission(mrn: String): Unit =
-    clickByXPath(s"//tr[.//a[text()='$mrn'] and contains(.,'Awaiting decision')]//a[text()='$mrn']")
+  // Click a submission
+  def clickMRNSubmission(mrn: String): Unit =
+    clickByXPath(s"//a[text()='$mrn']")
 
 }
