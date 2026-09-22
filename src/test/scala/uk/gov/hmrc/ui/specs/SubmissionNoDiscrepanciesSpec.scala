@@ -20,6 +20,7 @@ import uk.gov.hmrc.test.ui.specs.BaseSpec
 import uk.gov.hmrc.ui.steps.LoginSteps.*
 import uk.gov.hmrc.ui.steps.SubmissionSteps.*
 import uk.gov.hmrc.ui.pages.Submission.*
+import uk.gov.hmrc.ui.util.TestDataGenerators
 
 class SubmissionNoDiscrepanciesSpec extends BaseSpec {
 
@@ -27,14 +28,15 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
 
     Scenario("E2E Journey: Complete a IE507(a) Declaration with no discrepancies, then view it in the dashboard") {
 
-      val mrn                          = s"26GB${System.currentTimeMillis().toString.takeRight(12)}A9"
+      val mrn                          = TestDataGenerators.generateMrn()
       val ducr                         = "5GB000000000000-12345"
       val locationQualifier            = "Authorisation number"
       val unlocode                     = "UN123"
       val locationAdditionalIdentifier = "AD01"
       val authorisationReferenceNumber = "AUTH12345"
       val officeOfExit                 = "Belfast (GB000051)"
-      val status                       = "Awaiting decision" // backend assigns this status to every new submission by default
+      // AES-906 fixed the notification pipeline, so status reaches 'Accepted' almost immediately
+      val status                       = "Accepted"
 
       Given("I login with ID GB12345679")
       andILoginWithIDX("GB12345679")
@@ -142,8 +144,7 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
 
     Scenario("View submissions page shows empty state for an EORI with no submissions") {
 
-      // unique per run to guarantee a clean EORI with no submission history
-      val eori = s"GB${System.currentTimeMillis().toString.takeRight(9)}"
+      val eori = TestDataGenerators.generateEori()
 
       Given(s"I login with a fresh EORI $eori")
       andILoginWithIDX(eori)

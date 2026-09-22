@@ -22,6 +22,7 @@ import uk.gov.hmrc.ui.steps.SubmissionSteps.*
 import uk.gov.hmrc.ui.pages.Submission.*
 import uk.gov.hmrc.ui.steps.CancellationSteps.*
 import uk.gov.hmrc.ui.pages.Cancellation.*
+import uk.gov.hmrc.ui.util.TestDataGenerators
 
 class CancellationSpec extends BaseSpec {
 
@@ -30,8 +31,8 @@ class CancellationSpec extends BaseSpec {
     Scenario("E2E Journey: Successfully cancel a submitted IE507(a)") {
 
       // unique per run so this spec does not depend on another spec having run first (AES-870)
-      val eori                         = s"GB${System.currentTimeMillis().toString.takeRight(9)}"
-      val mrn                          = s"26GB${System.currentTimeMillis().toString.takeRight(12)}A9"
+      val eori                         = TestDataGenerators.generateEori()
+      val mrn                          = TestDataGenerators.generateMrn()
       val ducr                         = "5GB000000000000-12345"
       val locationQualifier            = "Authorisation number"
       val unlocode                     = "UN123"
@@ -162,6 +163,7 @@ class CancellationSpec extends BaseSpec {
       Then("I am on the page titled 'Your IE507(a) submissions'")
       ViewSubmissionsPage.loadPage()
 
+      // AES-951 (not yet fixed): cancel never sends the IE507 to EIS, so status never moves to 'Cancelled' - this assertion is expected to fail
       And("I can view that the submission now has a status of 'Cancelled'")
       iCanSeeMySubmissionDetails(mrn, officeOfExit, "Cancelled")
     }

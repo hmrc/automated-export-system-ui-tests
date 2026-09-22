@@ -25,11 +25,12 @@ import uk.gov.hmrc.test.ui.specs.BaseSpec
 import uk.gov.hmrc.ui.steps.LoginSteps.*
 import uk.gov.hmrc.ui.steps.SubmissionSteps.*
 import uk.gov.hmrc.ui.pages.Submission.*
+import uk.gov.hmrc.ui.util.TestDataGenerators
 
 class MrnDucrValidationSpec extends BaseSpec {
 
   // valid MRN, used to reach the DUCR page in the two DUCR scenarios below
-  val mrn = s"26GB${System.currentTimeMillis().toString.takeRight(12)}A9"
+  val mrn = TestDataGenerators.generateMrn()
 
   // invalid MRN: fails the year group (must be 24-29 or 30-99)
   val invalidMrn = "23AB123456789012A1"
