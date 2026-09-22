@@ -163,7 +163,6 @@ class CancellationSpec extends BaseSpec {
       Then("I am on the page titled 'Your IE507(a) submissions'")
       ViewSubmissionsPage.loadPage()
 
-      // AES-951 (not yet fixed): cancel never sends the IE507 to EIS, so status never moves to 'Cancelled' - this assertion is expected to fail
       And("I can view that the submission now has a status of 'Cancelled'")
       iCanSeeMySubmissionDetails(mrn, officeOfExit, "Cancelled")
     }
