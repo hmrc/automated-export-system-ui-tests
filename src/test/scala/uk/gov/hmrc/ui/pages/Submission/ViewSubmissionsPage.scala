@@ -31,8 +31,8 @@ object ViewSubmissionsPage extends Page {
   def assertNoSubmissionsMessage(): Unit =
     checkForContent("You have no IE507(a) submissions")
 
-  // Click a submission with 'awaiting decision' state
+  // was matched on MRN + 'Awaiting decision'; now AES-906 moves status on within ms, so match on MRN only
   def clickSubmission(mrn: String): Unit =
-    clickByXPath(s"//tr[.//a[text()='$mrn'] and contains(.,'Awaiting decision')]//a[text()='$mrn']")
+    clickByXPath(s"//tr[.//a[text()='$mrn']]//a[text()='$mrn']")
 
 }

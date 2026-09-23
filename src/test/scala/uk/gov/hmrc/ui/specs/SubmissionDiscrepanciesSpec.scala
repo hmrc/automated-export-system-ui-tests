@@ -20,6 +20,7 @@ import uk.gov.hmrc.test.ui.specs.BaseSpec
 import uk.gov.hmrc.ui.steps.LoginSteps.*
 import uk.gov.hmrc.ui.steps.SubmissionSteps.*
 import uk.gov.hmrc.ui.pages.Submission.*
+import uk.gov.hmrc.ui.util.TestDataGenerators
 
 class SubmissionDiscrepanciesSpec extends BaseSpec {
 
@@ -27,7 +28,7 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
 
     Scenario("E2E Journey: Submit a IE507(a) Declaration and declare a split discrepancy") {
 
-      val mrn                          = s"26GB${System.currentTimeMillis().toString.takeRight(12)}A9"
+      val mrn                          = TestDataGenerators.generateMrn()
       val ducr                         = "5GB000000000000-12345"
       val mucr                         = "GB/000000000000-12345"
       val locationQualifier            = "Authorisation number"

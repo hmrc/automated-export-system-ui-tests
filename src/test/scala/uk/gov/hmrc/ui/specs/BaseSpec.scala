@@ -27,9 +27,11 @@ import java.net.http.{HttpClient, HttpRequest, HttpResponse}
 // use testonly/delete-all endpoint to clean up test data before each test run
 private object TestDataCleanup {
 
-  lazy val runOnce: Unit = {
-    val httpClient = HttpClient.newHttpClient()
-    val request    = HttpRequest
+  private val httpClient = HttpClient.newHttpClient()
+
+  // was a `lazy val`, so it only ran once for the whole suite; now a `def` so it runs before every test
+  def cleanUp(): Unit = {
+    val request = HttpRequest
       .newBuilder()
       .uri(URI.create("http://localhost:5000/automated-export-system/test-only/delete-all"))
       .GET()
@@ -49,7 +51,7 @@ trait BaseSpec
     with ScreenshotOnFailure {
 
   override def beforeEach(): Unit = {
-    TestDataCleanup.runOnce
+    TestDataCleanup.cleanUp()
     startBrowser()
     Driver.instance.manage().deleteAllCookies()
   }
