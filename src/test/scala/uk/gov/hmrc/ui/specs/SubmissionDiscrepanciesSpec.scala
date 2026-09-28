@@ -21,6 +21,7 @@ import uk.gov.hmrc.ui.steps.LoginSteps.*
 import uk.gov.hmrc.ui.steps.SubmissionSteps.*
 import uk.gov.hmrc.ui.pages.Submission.*
 import uk.gov.hmrc.ui.util.TestDataGenerators
+import uk.gov.hmrc.ui.pages.Submission.PackagingCYAPage
 
 class SubmissionDiscrepanciesSpec extends BaseSpec {
 
@@ -49,7 +50,7 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       val newGrossMass                 = "30"
       val newNetMass                   = "28"
       val packagingCode                = "BX"
-      val numberOfPackages             = "3"
+      val numberOfPackages             = "1"
       val shippingMarks                = "MARKS123"
 
       Given("I login with ID GB12345679")
@@ -211,6 +212,12 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
 
       And("I click the Continue button")
       PackingDetailsPage.submitPageByType()
+
+      Then("I am on the Packaging Check Your Answers page")
+      PackagingCYAPage.loadPage()
+
+      When("I review packaging details and click continue button")
+      PackagingCYAPage.clickContinue()
 
       Then("I am on the Check Your Answers page")
       CheckYourAnswersPage.loadPage()
