@@ -21,7 +21,6 @@ import uk.gov.hmrc.ui.steps.LoginSteps.*
 import uk.gov.hmrc.ui.steps.SubmissionSteps.*
 import uk.gov.hmrc.ui.pages.Submission.*
 import uk.gov.hmrc.ui.util.TestDataGenerators
-import uk.gov.hmrc.ui.pages.Submission.PackagingCYAPage
 
 class SubmissionDiscrepanciesSpec extends BaseSpec {
 
