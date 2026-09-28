@@ -20,7 +20,7 @@ import uk.gov.hmrc.ui.pages.CommonPages.Page
 
 object PackagingCYAPage extends Page {
 
-  override def title(args: String*): String = "Packing details"
+  override def title(args: String*): String = "Check your answers"
 
   // Packaging Continue Button
   def clickContinue(): Unit =
