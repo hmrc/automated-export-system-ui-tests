@@ -51,6 +51,9 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       val packagingCode                = "BX"
       val numberOfPackages             = "1"
       val shippingMarks                = "MARKS123"
+      val packagingCode2               = "CT"
+      val numberOfPackages2            = "3"
+      val shippingMarks2               = "MARKS456"
 
       Given("I login with ID GB12345679")
       andILoginWithIDX("GB12345679")
@@ -217,6 +220,41 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
 
       When("I review packaging details and click continue button")
       PackagingCYAPage.clickContinue()
+
+      Then("I am on the Packaging details summary list page")
+      PackagingSummaryListPage.loadPage("1")
+
+      When("I click 'Yes' to add another packaging detail")
+      PackagingSummaryListPage.select("Yes")
+
+      And("I click the Continue button")
+      PackagingSummaryListPage.submitPageByType()
+
+      Then("I am on the page titled 'Packing details'")
+      PackingDetailsPage.loadPage()
+
+      When("I enter the valid packing details for the 2nd package")
+      PackingDetailsPage.fillInputById("packagingCode", packagingCode2)
+      PackingDetailsPage.fillInputById("numberOfPackages", numberOfPackages2)
+      PackingDetailsPage.fillInputById("shippingMarks", shippingMarks2)
+
+      And("I click the Continue button")
+      PackingDetailsPage.submitPageByType()
+
+      Then("I am on the Packaging Check Your Answers page")
+      PackagingCYAPage.loadPage()
+
+      When("I review packaging details and click continue button")
+      PackagingCYAPage.clickContinue()
+
+      Then("I am on the Packaging details summary list page")
+      PackagingSummaryListPage.loadPage("2")
+
+      When("I click 'No' to not add any more packaging details")
+      PackagingSummaryListPage.select("No")
+
+      And("I click the Continue button")
+      PackagingSummaryListPage.submitPageByType()
 
       Then("I am on the Check Your Answers page")
       CheckYourAnswersPage.loadPage()
