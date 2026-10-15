@@ -38,7 +38,7 @@ class CancellationSpec extends BaseSpec {
       val unlocode                     = "UN123"
       val locationAdditionalIdentifier = "AD01"
       val authorisationReferenceNumber = "AUTH12345"
-      val officeOfExit                 = "Belfast (GB000051)"
+      val officeOfExit                 = "Belfast (XI000142)"
 
       Given(s"I login with ID $eori")
       andILoginWithIDX(eori)

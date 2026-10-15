@@ -34,7 +34,7 @@ class SubmissionNoDiscrepanciesSpec extends BaseSpec {
       val unlocode                     = "UN123"
       val locationAdditionalIdentifier = "AD01"
       val authorisationReferenceNumber = "AUTH12345"
-      val officeOfExit                 = "Belfast (GB000051)"
+      val officeOfExit                 = "Belfast (XI000142)"
       // AES-906 fixed the notification pipeline, so status reaches 'Accepted' almost immediately
       val status                       = "Accepted"
 
