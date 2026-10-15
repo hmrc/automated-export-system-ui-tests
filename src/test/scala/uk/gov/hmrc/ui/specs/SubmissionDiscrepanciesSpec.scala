@@ -35,7 +35,7 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       val unlocode                     = "UN123"
       val locationAdditionalIdentifier = "AD01"
       val authorisationReferenceNumber = "AUTH12345"
-      val officeOfExit                 = "Larne (GB000142)"
+      val officeOfExit                 = "Larne (XI005220)"
       val containerId                  = "CONT1234567890123"
       val numberOfSeals                = "2"
       val sealIdentifier               = "SEAL123"
