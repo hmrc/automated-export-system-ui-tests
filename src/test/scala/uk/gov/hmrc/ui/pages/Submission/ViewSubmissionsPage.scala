@@ -16,16 +16,48 @@
 
 package uk.gov.hmrc.ui.pages.Submission
 
+import org.openqa.selenium.{By, NoSuchElementException, TimeoutException, WebDriver}
+import org.openqa.selenium.support.ui.FluentWait
+import uk.gov.hmrc.selenium.webdriver.Driver
 import uk.gov.hmrc.ui.pages.CommonPages.Page
+
+import java.time.Duration
 
 object ViewSubmissionsPage extends Page {
 
   override def title(args: String*): String = "Your IE507(a) submissions"
 
+  private val statusTimeout = Duration.ofSeconds(30)
+  private val pollInterval  = Duration.ofSeconds(2)
+
+  // Status is updated asynchronously (e.g. 'Awaiting decision' -> 'Accepted') and the
+  // dashboard does not auto-refresh. Find the row for this MRN and refresh until it
+  // shows the expected status, so other submissions on the page cannot cause a false pass.
   def assertSubmissionDetails(mrn: String, officeOfExit: String, status: String): Unit = {
-    checkForContent(mrn)
-    checkForContent(officeOfExit)
-    checkForContent(status)
+    val rowLocator  = By.xpath(s"//tr[.//*[contains(normalize-space(.), '$mrn')]]")
+    var lastRowText = "<row not found>"
+
+    val wait = new FluentWait[WebDriver](Driver.instance)
+      .withTimeout(statusTimeout)
+      .pollingEvery(pollInterval)
+      .ignoring(classOf[NoSuchElementException])
+
+    try
+      wait.until { (d: WebDriver) =>
+        d.navigate().refresh()
+        lastRowText = d.findElement(rowLocator).getText
+        lastRowText.contains(status)
+      }
+    catch
+      case _: TimeoutException =>
+        throw new AssertionError(
+          s"Submission $mrn did not reach status '$status' within ${statusTimeout.getSeconds}s. " +
+            s"Last row: '$lastRowText'"
+        )
+
+    assert(lastRowText.contains(mrn), s"MRN '$mrn' not in row: '$lastRowText'")
+    assert(lastRowText.contains(officeOfExit), s"Office of exit '$officeOfExit' not in row: '$lastRowText'")
+    assert(lastRowText.contains(status), s"Status '$status' not in row: '$lastRowText'")
   }
 
   def assertNoSubmissionsMessage(): Unit =
