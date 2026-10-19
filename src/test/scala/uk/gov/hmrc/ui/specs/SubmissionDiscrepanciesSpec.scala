@@ -16,13 +16,21 @@
 
 package uk.gov.hmrc.ui.specs
 
+import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
+import uk.gov.hmrc.selenium.webdriver.Driver
 import uk.gov.hmrc.test.ui.specs.BaseSpec
 import uk.gov.hmrc.ui.steps.LoginSteps.*
 import uk.gov.hmrc.ui.steps.SubmissionSteps.*
 import uk.gov.hmrc.ui.pages.Submission.*
 import uk.gov.hmrc.ui.util.TestDataGenerators
 
+import java.time.Duration
+
 class SubmissionDiscrepanciesSpec extends BaseSpec {
+
+  // TEMPORARY (ticket 921): Path of the Declaration Goods Reference page (DiscrepancyReferenceController, NormalMode),
+  // used to skip the broken Continue on the Seals CYA page. Remove once ticket 921 is done.
+  private val declarationGoodsRefPath = "/automated-export-system/discrepancy-reference"
 
   Feature("IE507(a) Submission with discrepancies") {
 
@@ -118,7 +126,7 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       Then("I am on the page titled 'Where do you expect the goods to exit the UK?'")
       ExitOfGoodsPage.loadPage()
 
-      When("I select Larne (GB000142) from the dropdown list")
+      When(s"I select $officeOfExit from the dropdown list")
       selectCustomsOffice(officeOfExit)
 
       And("I click the Continue button")
@@ -160,6 +168,24 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
 
       And("I click the Continue button")
       SealIdentifierPage.submitPageByType()
+
+      Then("I am on the Seals Check Your Answers page")
+      new WebDriverWait(Driver.instance, Duration.ofSeconds(10))
+        .until(ExpectedConditions.urlContains("/seals-check-answers/1"))
+      assert(
+        Driver.instance.getTitle.startsWith("Check your answers"),
+        s"Expected Seals CYA page but title was: '${Driver.instance.getTitle}'"
+      )
+
+      // TEMPORARY (ticket 921): Clicking Continue on the Seals CYA page currently leads to "Sorry, there is a problem
+      // with the service" because the next page has not been built yet. Ticket 921 will build it.
+      // Until then, navigate directly to the Declaration Goods Reference page by URL so the rest of the journey is
+      // still tested.
+      // Once ticket 921 is done: create a SealsCYAPage page object, click Continue on it, and remove this navigation
+      // (and the declarationGoodsRefPath value at the top of the class).
+      When("I navigate directly to the Declaration Goods Reference page (temporary, ticket 921)")
+      val baseUrl = Driver.instance.getCurrentUrl.split("/automated-export-system").head
+      Driver.instance.get(s"$baseUrl$declarationGoodsRefPath")
 
       Then("I am on the page titled 'What is the Declaration Goods Reference?'")
       DeclarationGoodsRefPage.loadPage()
