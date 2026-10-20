@@ -22,4 +22,9 @@ object IdentifyLocationPage extends StringPage {
 
   override def title(args: String*): String = "Identify the location"
 
+  def amendLocationDetails(locationAdditionalIdentifier: String, authorisationReferenceNumber: String): Unit = {
+    fillInputById("locationAdditionalIdentifier", locationAdditionalIdentifier)
+    fillInputById("authorisationReferenceNumber", authorisationReferenceNumber)
+  }
+
 }

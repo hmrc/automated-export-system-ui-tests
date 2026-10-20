@@ -25,4 +25,6 @@ object SubmissionDetailsPage extends Page {
   def clickCancelSubmission(): Unit =
     clickByPartialLinkText("Cancel this submission")
 
+  def clickAmendSubmission(): Unit =
+    clickByPartialLinkText("Amend this submission")
 }
