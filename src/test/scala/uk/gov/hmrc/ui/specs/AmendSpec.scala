@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.ui.specs
 
-import uk.gov.hmrc.ui.specs.BaseSpec
+import uk.gov.hmrc.test.ui.specs.BaseSpec
 import uk.gov.hmrc.ui.pages.Amend.AmendSubmissionPage
 import uk.gov.hmrc.ui.steps.LoginSteps.*
 import uk.gov.hmrc.ui.steps.AmendSteps.*
