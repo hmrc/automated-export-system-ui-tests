@@ -17,7 +17,7 @@
 package uk.gov.hmrc.ui.specs
 
 import uk.gov.hmrc.test.ui.specs.BaseSpec
-import uk.gov.hmrc.ui.pages.Amend.AmendSubmissionPage
+import uk.gov.hmrc.ui.pages.Amend.*
 import uk.gov.hmrc.ui.steps.LoginSteps.*
 import uk.gov.hmrc.ui.steps.AmendSteps.*
 import uk.gov.hmrc.ui.steps.SubmissionSteps.*
@@ -170,8 +170,8 @@ class AmendSpec extends BaseSpec {
       When("I click the 'Amend this submission' button")
       AmendSubmissionPage.clickSubmitAmendment()
 
-      Then("I am on the confirmation page and I have successfully amended the submission")
-      SubmissionConfirmationPage.loadPage()
+      Then("I am on the Amend confirmation page and I have successfully amended the submission")
+      AmendConfirmationPage.loadPage()
 
     }
   }
