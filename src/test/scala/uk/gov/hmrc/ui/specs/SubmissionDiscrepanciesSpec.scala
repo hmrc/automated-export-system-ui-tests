@@ -177,6 +177,21 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       And("I click the Continue button")
       ContainerDetailsPage.submitPageByType()
 
+      Then("I am on the Transport Equipment Check Your Answers page")
+      waitForPage("/transport-equipment-check-answers/1", "Check your answers")
+
+      When("I click the Continue button on the Transport Equipment Check Your Answers page")
+      clickContinueButton()
+
+      Then("I am on the 'You have added 1 transport equipment' page")
+      waitForPage("/add-another-transport-equipment", "You have added 1 transport equipment")
+
+      When("I click 'No' to not add another transport equipment")
+      selectYesNo(yes = false)
+
+      And("I click the Continue button")
+      clickContinueButton()
+
       Then("I am on the page titled 'What is the seal identifier?'")
       SealIdentifierPage.loadPage()
 
@@ -438,6 +453,21 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
 
       And("I click the Continue button")
       ContainerDetailsPage.submitPageByType()
+
+      Then("I am on the Transport Equipment Check Your Answers page")
+      waitForPage("/transport-equipment-check-answers/1", "Check your answers")
+
+      When("I click the Continue button on the Transport Equipment Check Your Answers page")
+      clickContinueButton()
+
+      Then("I am on the 'You have added 1 transport equipment' page")
+      waitForPage("/add-another-transport-equipment", "You have added 1 transport equipment")
+
+      When("I click 'No' to not add another transport equipment")
+      selectYesNo(yes = false)
+
+      And("I click the Continue button")
+      clickContinueButton()
 
       Then("I am on the page titled 'What is the seal identifier?'")
       SealIdentifierPage.loadPage()
