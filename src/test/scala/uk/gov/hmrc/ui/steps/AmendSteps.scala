@@ -16,8 +16,9 @@
 
 package uk.gov.hmrc.ui.steps
 
-import uk.gov.hmrc.ui.pages.Submission.ViewSubmissionsPage
-import uk.gov.hmrc.ui.pages.Submission.SubmissionDetailsPage
+import uk.gov.hmrc.ui.pages.dashboard.*
+import uk.gov.hmrc.ui.pages.dashboard.ViewSubmissionsPage
+import uk.gov.hmrc.ui.pages.dashboard.SubmissionDetailsPage
 
 object AmendSteps {
 

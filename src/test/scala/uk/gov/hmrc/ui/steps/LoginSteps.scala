@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.ui.steps
 
-import uk.gov.hmrc.ui.pages.CommonPages.AuthorityWizardPage
+import uk.gov.hmrc.ui.pages.common.AuthorityWizardPage
 
 object LoginSteps {
 
