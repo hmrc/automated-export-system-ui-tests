@@ -25,4 +25,6 @@ object AddAnotherGoodsReferencePage extends YesNoPage {
 
   override def urlPart(args: String*): Option[String] = Some("/add-another-goods-reference")
 
+  def clickRemove(index: String): Unit = clickByXPath(s"//a[contains(@href,'/remove-goods-reference/$index')]")
+
 }

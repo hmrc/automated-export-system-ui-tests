@@ -23,4 +23,6 @@ object PackagingSummaryListPage extends YesNoPage {
   override def title(args: String*): String =
     s"You have added ${args.head} packaging detail${if (args.head == "1") "" else "s"}"
 
+  def clickRemove(index: String): Unit = clickByXPath(s"//a[contains(@href,'/remove-packaging-detail/$index')]")
+
 }

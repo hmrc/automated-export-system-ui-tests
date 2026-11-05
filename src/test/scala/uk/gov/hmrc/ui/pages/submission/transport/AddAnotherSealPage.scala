@@ -25,4 +25,6 @@ object AddAnotherSealPage extends YesNoPage {
 
   override def urlPart(args: String*): Option[String] = Some("/add-another-seal")
 
+  def clickRemove(index: String): Unit = clickByXPath(s"//a[contains(@href,'/remove-seal/$index')]")
+
 }
