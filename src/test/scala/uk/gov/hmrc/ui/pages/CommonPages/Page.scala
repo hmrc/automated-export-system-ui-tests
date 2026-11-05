@@ -20,12 +20,17 @@ trait Page extends BasePage {
 
   def title(args: String*): String
 
+  /** Part of the URL that must be present. Used to tell apart pages that share the same title. */
+  def urlPart(args: String*): Option[String] = None
+
   def loadPage(args: String*): this.type = {
-    onPage(title(args: _*))
+    onPage(title(args: _*), urlPart(args: _*))
     this
   }
 
-  private def onPage(expectedTitle: String): Unit =
+  private def onPage(expectedTitle: String, expectedUrlPart: Option[String]): Unit = {
     fluentWait.until(_.getTitle.contains(expectedTitle))
+    expectedUrlPart.foreach(part => fluentWait.until(_.getCurrentUrl.contains(part)))
+  }
 
 }

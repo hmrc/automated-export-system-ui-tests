@@ -22,4 +22,8 @@ object DeclarationGoodsRefPage extends StringPage {
 
   override def title(args: String*): String = "What is the Declaration Goods Reference?"
 
+  // loadPage("2") also checks that the URL is for the 2nd reference
+  override def urlPart(args: String*): Option[String] =
+    args.headOption.map(index => s"/discrepancy-reference/$index")
+
 }

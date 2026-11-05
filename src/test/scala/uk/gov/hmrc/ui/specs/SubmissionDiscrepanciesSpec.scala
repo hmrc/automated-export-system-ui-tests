@@ -16,45 +16,13 @@
 
 package uk.gov.hmrc.ui.specs
 
-import org.openqa.selenium.By
-import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
-import uk.gov.hmrc.selenium.webdriver.Driver
 import uk.gov.hmrc.test.ui.specs.BaseSpec
 import uk.gov.hmrc.ui.steps.LoginSteps.*
 import uk.gov.hmrc.ui.steps.SubmissionSteps.*
 import uk.gov.hmrc.ui.pages.Submission.*
 import uk.gov.hmrc.ui.util.TestDataGenerators
 
-import java.time.Duration
-
 class SubmissionDiscrepanciesSpec extends BaseSpec {
-
-  // Helpers for pages that do not have a page object yet
-  // (Seals CYA, Add another seal, Goods Reference CYA, Add another goods reference, Transport Document CYA).
-
-  /** Waits until the URL contains `urlPart` and asserts the title starts with `titlePrefix`. */
-  private def waitForPage(urlPart: String, titlePrefix: String): Unit = {
-    new WebDriverWait(Driver.instance, Duration.ofSeconds(10))
-      .until(ExpectedConditions.urlContains(urlPart))
-    assert(
-      Driver.instance.getTitle.startsWith(titlePrefix),
-      s"Expected title starting with '$titlePrefix' on '$urlPart' but title was: '${Driver.instance.getTitle}'"
-    )
-  }
-
-  /** Clicks the GOV.UK Continue button, whether it is a <button> or a link styled as a button. */
-  private def clickContinueButton(): Unit =
-    Driver.instance
-      .findElement(
-        By.xpath(
-          "//button[normalize-space()='Continue'] | //a[contains(@class,'govuk-button') and normalize-space()='Continue']"
-        )
-      )
-      .click()
-
-  /** Selects a GOV.UK yes/no radio (ids: `value` = Yes, `value-no` = No). */
-  private def selectYesNo(yes: Boolean): Unit =
-    Driver.instance.findElement(By.id(if (yes) "value" else "value-no")).click()
 
   Feature("IE507(a) Submission with discrepancies") {
 
@@ -178,19 +146,19 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       ContainerDetailsPage.submitPageByType()
 
       Then("I am on the Transport Equipment Check Your Answers page")
-      waitForPage("/transport-equipment-check-answers/1", "Check your answers")
+      TransportEquipmentCYAPage.loadPage("1")
 
       When("I click the Continue button on the Transport Equipment Check Your Answers page")
-      clickContinueButton()
+      TransportEquipmentCYAPage.clickContinue()
 
       Then("I am on the 'You have added 1 transport equipment' page")
-      waitForPage("/add-another-transport-equipment", "You have added 1 transport equipment")
+      AddAnotherTransportEquipmentPage.loadPage("1")
 
       When("I click 'No' to not add another transport equipment")
-      selectYesNo(yes = false)
+      AddAnotherTransportEquipmentPage.select("No")
 
       And("I click the Continue button")
-      clickContinueButton()
+      AddAnotherTransportEquipmentPage.clickContinueButton()
 
       Then("I am on the page titled 'What is the seal identifier?'")
       SealIdentifierPage.loadPage()
@@ -204,22 +172,22 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       // Note: the Seal CYA page shows "Seal 1", "Seal 2" rather than full seal identifier details (confirmed
       // behaviour in ticket 921), so only the URL and title are asserted here.
       Then("I am on the Seals Check Your Answers page for the 1st seal")
-      waitForPage("/seals-check-answers/1", "Check your answers")
+      SealsCYAPage.loadPage("1")
 
       When("I click the Continue button on the Seals Check Your Answers page")
-      clickContinueButton()
+      SealsCYAPage.clickContinue()
 
       Then("I am on the 'You have added 1 seal' page")
-      waitForPage("/add-another-seal", "You have added 1 seal")
+      AddAnotherSealPage.loadPage("1")
 
       When("I click 'Yes' to add another seal")
-      selectYesNo(yes = true)
+      AddAnotherSealPage.select("Yes")
 
       And("I click the Continue button")
-      clickContinueButton()
+      AddAnotherSealPage.clickContinueButton()
 
       Then("I am on the page titled 'What is the seal identifier?' for the 2nd seal")
-      waitForPage("/discrepancy-seals/2", "What is the seal identifier?")
+      SealIdentifierPage.loadPage("2")
 
       When("I enter a valid seal identifier for the 2nd seal")
       SealIdentifierPage.fillInput(sealIdentifier2)
@@ -228,19 +196,19 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       SealIdentifierPage.submitPageByType()
 
       Then("I am on the Seals Check Your Answers page for the 2nd seal")
-      waitForPage("/seals-check-answers/2", "Check your answers")
+      SealsCYAPage.loadPage("2")
 
       When("I click the Continue button on the Seals Check Your Answers page")
-      clickContinueButton()
+      SealsCYAPage.clickContinue()
 
       Then("I am on the 'You have added 2 seals' page")
-      waitForPage("/add-another-seal", "You have added 2 seals")
+      AddAnotherSealPage.loadPage("2")
 
       When("I click 'No' to not add another seal")
-      selectYesNo(yes = false)
+      AddAnotherSealPage.select("No")
 
       And("I click the Continue button")
-      clickContinueButton()
+      AddAnotherSealPage.clickContinueButton()
 
       Then("I am on the page titled 'What is the Declaration Goods Reference?'")
       DeclarationGoodsRefPage.loadPage()
@@ -252,22 +220,22 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       DeclarationGoodsRefPage.submitPageByType()
 
       Then("I am on the Declaration Goods Reference Check Your Answers page for the 1st reference")
-      waitForPage("/goods-reference-check-answers/1", "Check your answers")
+      GoodsReferenceCYAPage.loadPage("1")
 
       When("I click the Continue button on the Declaration Goods Reference Check Your Answers page")
-      clickContinueButton()
+      GoodsReferenceCYAPage.clickContinue()
 
       Then("I am on the 'You have added 1 Declaration Goods Reference' page")
-      waitForPage("/add-another-goods-reference", "You have added 1 Declaration Goods Reference")
+      AddAnotherGoodsReferencePage.loadPage("1")
 
       When("I click 'Yes' to add another Declaration Goods Reference")
-      selectYesNo(yes = true)
+      AddAnotherGoodsReferencePage.select("Yes")
 
       And("I click the Continue button")
-      clickContinueButton()
+      AddAnotherGoodsReferencePage.clickContinueButton()
 
       Then("I am on the page titled 'What is the Declaration Goods Reference?' for the 2nd reference")
-      waitForPage("/discrepancy-reference/2", "What is the Declaration Goods Reference?")
+      DeclarationGoodsRefPage.loadPage("2")
 
       When("I enter a valid reference for the 2nd reference")
       DeclarationGoodsRefPage.fillInput(goodsReference2)
@@ -276,19 +244,19 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       DeclarationGoodsRefPage.submitPageByType()
 
       Then("I am on the Declaration Goods Reference Check Your Answers page for the 2nd reference")
-      waitForPage("/goods-reference-check-answers/2", "Check your answers")
+      GoodsReferenceCYAPage.loadPage("2")
 
       When("I click the Continue button on the Declaration Goods Reference Check Your Answers page")
-      clickContinueButton()
+      GoodsReferenceCYAPage.clickContinue()
 
       Then("I am on the 'You have added 2 Declaration Goods References' page")
-      waitForPage("/add-another-goods-reference", "You have added 2")
+      AddAnotherGoodsReferencePage.loadPage("2")
 
       When("I click 'No' to not add another Declaration Goods Reference")
-      selectYesNo(yes = false)
+      AddAnotherGoodsReferencePage.select("No")
 
       And("I click the Continue button")
-      clickContinueButton()
+      AddAnotherGoodsReferencePage.clickContinueButton()
 
       Then("I am on the page titled 'Transport across the border'")
       TransportAcrossBorderPage.loadPage()
@@ -312,13 +280,13 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       DocumentDetailsPage.submitPageByType()
 
       Then("I am on the Transport Document Check Your Answers page")
-      waitForPage("/discrepancy-transport-doc-check-answers/1", "Check your answers")
+      TransportDocCYAPage.loadPage("1")
 
       // TODO: Transport Document CYA currently links straight to the final Check Your Answers page (AES-1164).
       // Once the "add another transport document" page is built (future ticket), add that step here.
       // 'Tell us what’s changed' and 'Packing details' are covered by the "no transport document" scenario below.
       When("I click the Continue button on the Transport Document Check Your Answers page")
-      clickContinueButton()
+      TransportDocCYAPage.clickContinue()
 
       Then("I am on the Check Your Answers page")
       CheckYourAnswersPage.loadPage()
@@ -455,19 +423,19 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       ContainerDetailsPage.submitPageByType()
 
       Then("I am on the Transport Equipment Check Your Answers page")
-      waitForPage("/transport-equipment-check-answers/1", "Check your answers")
+      TransportEquipmentCYAPage.loadPage("1")
 
       When("I click the Continue button on the Transport Equipment Check Your Answers page")
-      clickContinueButton()
+      TransportEquipmentCYAPage.clickContinue()
 
       Then("I am on the 'You have added 1 transport equipment' page")
-      waitForPage("/add-another-transport-equipment", "You have added 1 transport equipment")
+      AddAnotherTransportEquipmentPage.loadPage("1")
 
       When("I click 'No' to not add another transport equipment")
-      selectYesNo(yes = false)
+      AddAnotherTransportEquipmentPage.select("No")
 
       And("I click the Continue button")
-      clickContinueButton()
+      AddAnotherTransportEquipmentPage.clickContinueButton()
 
       Then("I am on the page titled 'What is the seal identifier?'")
       SealIdentifierPage.loadPage()
@@ -479,19 +447,19 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       SealIdentifierPage.submitPageByType()
 
       Then("I am on the Seals Check Your Answers page")
-      waitForPage("/seals-check-answers/1", "Check your answers")
+      SealsCYAPage.loadPage("1")
 
       When("I click the Continue button on the Seals Check Your Answers page")
-      clickContinueButton()
+      SealsCYAPage.clickContinue()
 
       Then("I am on the 'You have added 1 seal' page")
-      waitForPage("/add-another-seal", "You have added 1 seal")
+      AddAnotherSealPage.loadPage("1")
 
       When("I click 'No' to not add another seal")
-      selectYesNo(yes = false)
+      AddAnotherSealPage.select("No")
 
       And("I click the Continue button")
-      clickContinueButton()
+      AddAnotherSealPage.clickContinueButton()
 
       Then("I am on the page titled 'What is the Declaration Goods Reference?'")
       DeclarationGoodsRefPage.loadPage()
@@ -503,19 +471,19 @@ class SubmissionDiscrepanciesSpec extends BaseSpec {
       DeclarationGoodsRefPage.submitPageByType()
 
       Then("I am on the Declaration Goods Reference Check Your Answers page")
-      waitForPage("/goods-reference-check-answers/1", "Check your answers")
+      GoodsReferenceCYAPage.loadPage("1")
 
       When("I click the Continue button on the Declaration Goods Reference Check Your Answers page")
-      clickContinueButton()
+      GoodsReferenceCYAPage.clickContinue()
 
       Then("I am on the 'You have added 1 Declaration Goods Reference' page")
-      waitForPage("/add-another-goods-reference", "You have added 1 Declaration Goods Reference")
+      AddAnotherGoodsReferencePage.loadPage("1")
 
       When("I click 'No' to not add another Declaration Goods Reference")
-      selectYesNo(yes = false)
+      AddAnotherGoodsReferencePage.select("No")
 
       And("I click the Continue button")
-      clickContinueButton()
+      AddAnotherGoodsReferencePage.clickContinueButton()
 
       Then("I am on the page titled 'Transport across the border'")
       TransportAcrossBorderPage.loadPage()

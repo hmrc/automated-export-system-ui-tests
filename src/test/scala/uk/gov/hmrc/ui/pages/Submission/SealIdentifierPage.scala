@@ -22,4 +22,8 @@ object SealIdentifierPage extends StringPage {
 
   override def title(args: String*): String = "What is the seal identifier?"
 
+  // loadPage("2") also checks that the URL is for the 2nd seal
+  override def urlPart(args: String*): Option[String] =
+    args.headOption.map(index => s"/discrepancy-seals/$index")
+
 }
