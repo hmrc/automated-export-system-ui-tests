@@ -15,7 +15,9 @@
  */
 
 package uk.gov.hmrc.ui.steps
-import uk.gov.hmrc.ui.pages.Submission.*
+
+import uk.gov.hmrc.ui.pages.dashboard.*
+import uk.gov.hmrc.ui.pages.submission.*
 object SubmissionSteps {
   // Homepage
   def startNewSubmissionByLink(): Unit                                                    =

@@ -23,8 +23,11 @@ object TestDataGenerators {
   // UUID-based to avoid collisions across parallel/repeated test runs,
   // since test-only/delete-all currently 404s and never cleans up old data
   def generateMrn(): String = {
-    val digits = UUID.randomUUID().toString.replace("-", "").filter(_.isDigit).take(12).padTo(12, '0')
-    s"26GB${digits}A9"
+    val digits     = UUID.randomUUID().toString.replace("-", "").filter(_.isDigit).take(12).padTo(12, '0')
+    // ZAP reads a 12-digit number starting with 5x or 6x as a Maestro card number (PII false positive),
+    // so the generated digits never start with 5 or 6
+    val safeDigits = if (digits.head == '5' || digits.head == '6') s"7${digits.tail}" else digits
+    s"26GB${safeDigits}A9"
   }
 
   def generateEori(): String = {
