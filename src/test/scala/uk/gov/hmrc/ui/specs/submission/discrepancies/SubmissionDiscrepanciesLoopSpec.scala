@@ -286,7 +286,7 @@ class SubmissionDiscrepanciesLoopSpec extends BaseSpec {
 
       // TODO: Transport Document CYA currently links straight to the final Check Your Answers page (AES-1164).
       // Once the "add another transport document" page is built (future ticket), add that step here.
-      // 'Tell us what’s changed' and 'Packing details' are covered by the "no transport document" scenario below.
+      // 'Tell us what’s changed' and 'Packing details' are covered in SubmissionDiscrepanciesSingleSpec.
       When("I click the Continue button on the Transport Document Check Your Answers page")
       TransportDocCYAPage.clickContinue()
 
