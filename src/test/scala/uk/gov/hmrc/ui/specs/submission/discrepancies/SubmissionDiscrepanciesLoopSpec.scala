@@ -24,7 +24,7 @@ import uk.gov.hmrc.ui.steps.SubmissionSteps.*
 import uk.gov.hmrc.ui.pages.submission.*
 import uk.gov.hmrc.ui.util.TestDataGenerators
 
-class SubmissionDiscrepanciesLoopSpec extends BaseSpec {
+class SubmissionDiscrepanciesLoopSpec extends BaseSpec with DiscrepancyJourney {
 
   Feature("IE507(a) Submission with discrepancies - add another answers") {
 
@@ -48,7 +48,9 @@ class SubmissionDiscrepanciesLoopSpec extends BaseSpec {
       val transportIdNumber            = "IDNUMBER123"
       val countryOfRegistration        = "GB"
       val documentType                 = "1"
+      val documentType2                = "2"
       val documentReferenceNumber      = "1234"
+      val documentReferenceNumber2     = "4321"
 
       Given("I login with ID GB12345679")
       andILoginWithIDX("GB12345679")
@@ -284,11 +286,57 @@ class SubmissionDiscrepanciesLoopSpec extends BaseSpec {
       Then("I am on the Transport Document Check Your Answers page")
       TransportDocCYAPage.loadPage("1")
 
-      // TODO: Transport Document CYA currently links straight to the final Check Your Answers page (AES-1164).
-      // Once the "add another transport document" page is built (future ticket), add that step here.
-      // 'Tell us what’s changed' and 'Packing details' are covered in SubmissionDiscrepanciesSingleSpec.
       When("I click the Continue button on the Transport Document Check Your Answers page")
       TransportDocCYAPage.clickContinue()
+
+      Then(" I am on the 'You have added 1 transport document' page ")
+      AddAnotherTransportDocPage.loadPage("1")
+
+      When("I click 'Yes' to add another Transport Document")
+      AddAnotherTransportDocPage.select("Yes")
+
+      And("I click the Continue button")
+      AddAnotherTransportDocPage.clickContinueButton()
+
+      Then("I am on the page titled 'Document details' for the 2nd document")
+      DocumentDetailsPage.loadPage("2")
+
+      When("I enter a valid document details for the 2nd rdocument")
+      DocumentDetailsPage.fillInputById("documentType", documentType2)
+      DocumentDetailsPage.fillInputById("referenceNumber", documentReferenceNumber2)
+
+      And("I click the Continue button")
+      DocumentDetailsPage.submitPageByType()
+
+      Then("I am on the Transport Document Check Your Answers page for the 2nd document")
+      TransportDocCYAPage.loadPage("2")
+
+      When("I click the Continue button on the Transport Document Check Your Answers page for 2nd document")
+      TransportDocCYAPage.clickContinue()
+
+      Then("I am on the 'You have added 2 transport documents' page")
+      AddAnotherTransportDocPage.loadPage("2")
+
+      When("I click 'No' to not add another Transport Document")
+      AddAnotherTransportDocPage.select("No")
+
+      And("I click the Continue button")
+      AddAnotherTransportDocPage.clickContinueButton()
+
+      Then("I am on the Tell Us What Has Changed page")
+      TellUsWhatChangedPage.loadPage()
+
+      When("I enter the changed declaration details")
+      enterChangedDetails(ducr)
+
+      Then("I add the first packaging detail")
+      addPackaging("1", "BX", "1", "MARKS123")
+
+      And("I click 'No' to not add another packaging detail")
+      PackagingSummaryListPage.select("No")
+
+      And("I click the Continue button")
+      PackagingSummaryListPage.clickContinueButton()
 
       Then("I am on the Check Your Answers page")
       CheckYourAnswersPage.loadPage()

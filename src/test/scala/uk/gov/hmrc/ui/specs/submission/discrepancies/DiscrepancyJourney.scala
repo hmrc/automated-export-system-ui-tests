@@ -172,4 +172,14 @@ trait DiscrepancyJourney { self: BaseSpec =>
     SubmissionConfirmationPage.loadPage()
   }
 
+  protected def enterChangedDetails(ducr: String): Unit = {
+    When("I enter valid changed details")
+    TellUsWhatChangedPage.loadPage()
+    TellUsWhatChangedPage.fillInputById("declarationGoodsItemNumber", "4")
+    TellUsWhatChangedPage.fillInputById("declarationUniqueConsignmentReference", ducr)
+    TellUsWhatChangedPage.fillInputById("newGrossMass", "30")
+    TellUsWhatChangedPage.fillInputById("newNetMass", "28")
+    TellUsWhatChangedPage.submitPageByType()
+  }
+
 }
