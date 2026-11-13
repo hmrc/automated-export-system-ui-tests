@@ -284,11 +284,56 @@ class SubmissionDiscrepanciesLoopSpec extends BaseSpec {
       Then("I am on the Transport Document Check Your Answers page")
       TransportDocCYAPage.loadPage("1")
 
-      // TODO: Transport Document CYA currently links straight to the final Check Your Answers page (AES-1164).
-      // Once the "add another transport document" page is built (future ticket), add that step here.
       // 'Tell us what’s changed' and 'Packing details' are covered in SubmissionDiscrepanciesSingleSpec.
       When("I click the Continue button on the Transport Document Check Your Answers page")
       TransportDocCYAPage.clickContinue()
+
+      Then("I am on the 'You have added 1 transport document' page")
+      AddAnotherTransportDocumentPage.loadPage("1")
+
+      When("I click 'No' to not add another transport document")
+      AddAnotherTransportDocumentPage.select("No")
+
+      And("I click the Continue button")
+      AddAnotherTransportDocumentPage.clickContinueButton()
+
+      Then("I am on the page titled 'Tell us what has changed'")
+      TellUsWhatChangedPage.loadPage()
+
+      When("I enter valid changed details")
+      TellUsWhatChangedPage.fillInputById("declarationGoodsItemNumber", "4")
+      TellUsWhatChangedPage.fillInputById("declarationUniqueConsignmentReference", ducr)
+      TellUsWhatChangedPage.fillInputById("newGrossMass", "30")
+      TellUsWhatChangedPage.fillInputById("newNetMass", "28")
+
+      And("I click the Continue button")
+      TellUsWhatChangedPage.submitPageByType()
+
+      Then("I am on the Packing details page")
+      PackingDetailsPage.loadPage()
+
+      When("I enter valid packing details")
+      PackingDetailsPage.fillInputById("packagingCode", "BX")
+      PackingDetailsPage.fillInputById("numberOfPackages", "1")
+      PackingDetailsPage.fillInputById("shippingMarks", "MARKS123")
+
+      And("I click the Continue button")
+      PackingDetailsPage.submitPageByType()
+
+      Then("I am on the Packaging Check Your Answers page")
+      PackagingCYAPage.loadPage()
+
+      When("I click the Continue button on the Packaging Check Your Answers page")
+      PackagingCYAPage.clickContinue()
+
+      Then("I am on the 'You have added 1 packaging detail' page")
+      PackagingSummaryListPage.loadPage("1")
+
+      When("I click 'No' to not add another packaging detail")
+      PackagingSummaryListPage.select("No")
+
+      And("I click the Continue button")
+      PackagingSummaryListPage.submitPageByType()
 
       Then("I am on the Check Your Answers page")
       CheckYourAnswersPage.loadPage()

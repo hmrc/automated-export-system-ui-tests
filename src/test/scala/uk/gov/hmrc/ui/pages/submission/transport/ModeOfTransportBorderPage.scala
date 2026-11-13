@@ -22,15 +22,16 @@ object ModeOfTransportBorderPage extends RadioPage {
 
   override def title(args: String*): String = "How will the goods cross the border?"
 
+  // CL018 Transport Mode dropdown, options come from the AES backend code list
   override def select(answer: String): this.type = {
-    val value = answer match {
-      case "Sea"  => "sea"
-      case "Rail" => "rail"
-      case "Road" => "road"
-      case "Air"  => "air"
+    val description = answer match {
+      case "Sea"  => "Sea transport"
+      case "Rail" => "Rail transport"
+      case "Road" => "Road transport"
+      case "Air"  => "Air transport"
       case other  => throw new IllegalArgumentException(s"Unknown mode of transport option: $other")
     }
-    clickRadioBtn(value)
+    selectById("value", description)
     this
   }
 }
