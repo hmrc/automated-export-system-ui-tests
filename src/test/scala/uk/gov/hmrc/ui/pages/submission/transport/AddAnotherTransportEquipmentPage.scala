@@ -25,4 +25,16 @@ object AddAnotherTransportEquipmentPage extends YesNoPage {
 
   override def urlPart(args: String*): Option[String] = Some("/add-another-transport-equipment")
 
+  def clickChange(containerId: String): Unit =
+    clickByXPath(s"//a[normalize-space()='Change transport equipment $containerId']")
+
+  def clickRemove(containerId: String): Unit =
+    clickByXPath(s"//a[normalize-space()='Remove transport equipment $containerId']")
+
+  def clickNext(): Unit =
+    clickByXPath("//a[contains(@class,'govuk-pagination__link') and contains(normalize-space(),'Next')]")
+
+  def clickPrevious(): Unit =
+    clickByXPath("//a[contains(@class,'govuk-pagination__link') and contains(normalize-space(),'Previous')]")
+
 }
