@@ -20,6 +20,6 @@ import uk.gov.hmrc.ui.pages.common.StringPage
 
 object MRNPage extends StringPage {
 
-  override def title(args: String*): String = "What is the Movement Reference Number (MRN)?"
+  override def title(args: String*): String = "What is the EU Movement Reference Number (MRN)?"
 
 }

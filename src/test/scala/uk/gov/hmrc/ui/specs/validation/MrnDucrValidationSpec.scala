@@ -61,7 +61,7 @@ class MrnDucrValidationSpec extends BaseSpec {
       When("I click on the 'Submit an IE507(a) Submission'")
       startNewSubmissionByLink()
 
-      Then("I am on the page titled 'What is the Movement Reference Number(MRN)?'")
+      Then("I am on the page titled 'What is the EU Movement Reference Number (MRN)?'")
       MRNPage.loadPage()
 
       When("I click the Continue button without entering an MRN")
@@ -70,7 +70,7 @@ class MrnDucrValidationSpec extends BaseSpec {
       And("I wait for the error page to load")
       waitForErrorSummary()
 
-      Then("I remain on the page titled 'What is the Movement Reference Number(MRN)?'")
+      Then("I remain on the page titled 'What is the EU Movement Reference Number (MRN)?'")
       MRNPage.loadPage()
 
       // AES-881: raw message key shown instead of readable text - update once fixed.
@@ -89,7 +89,7 @@ class MrnDucrValidationSpec extends BaseSpec {
       When("I click on the 'Submit an IE507(a) Submission'")
       startNewSubmissionByLink()
 
-      Then("I am on the page titled 'What is the Movement Reference Number(MRN)?'")
+      Then("I am on the page titled 'What is the EU Movement Reference Number (MRN)?'")
       MRNPage.loadPage()
 
       When(s"I enter an invalid-format MRN $invalidMrn")
@@ -101,11 +101,11 @@ class MrnDucrValidationSpec extends BaseSpec {
       And("I wait for the error page to load")
       waitForErrorSummary()
 
-      Then("I remain on the page titled 'What is the Movement Reference Number(MRN)?'")
+      Then("I remain on the page titled 'What is the EU Movement Reference Number (MRN)?'")
       MRNPage.loadPage()
 
       And("I see the invalid format error message")
-      MRNPage.checkForContent("EnterMrn must be in the correct format, for example 24AB123456789012A1")
+      MRNPage.checkForContent("EnterMrn must be in the correct format, for example 26IE0A123456789012")
     }
 
     Scenario("Submitting an empty DUCR shows an error and does not progress") {
@@ -119,7 +119,7 @@ class MrnDucrValidationSpec extends BaseSpec {
       When("I click on the 'Submit an IE507(a) Submission'")
       startNewSubmissionByLink()
 
-      Then("I am on the page titled 'What is the Movement Reference Number(MRN)?'")
+      Then("I am on the page titled 'What is the EU Movement Reference Number (MRN)?'")
       MRNPage.loadPage()
 
       When(s"I enter a valid MRN $mrn")
@@ -156,7 +156,7 @@ class MrnDucrValidationSpec extends BaseSpec {
       When("I click on the 'Submit an IE507(a) Submission'")
       startNewSubmissionByLink()
 
-      Then("I am on the page titled 'What is the Movement Reference Number(MRN)?'")
+      Then("I am on the page titled 'What is the EU Movement Reference Number (MRN)?'")
       MRNPage.loadPage()
 
       When(s"I enter a valid MRN $mrn")

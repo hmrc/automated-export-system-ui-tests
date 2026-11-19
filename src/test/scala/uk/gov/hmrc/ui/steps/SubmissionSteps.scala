@@ -23,9 +23,12 @@ object SubmissionSteps {
   def startNewSubmissionByLink(): Unit                                                    =
     AutomatedExportSystemPage
       .clickByPartialLinkText("Submit a new IE507(a) pre-notification")
-  def startNewSubmissionByButton(): Unit                                                  =
-    AutomatedExportSystemPage
-      .clickByPartialLinkText("Start now")
+  def startNewSubmissionByButton(): Unit                                                  = {
+    AutomatedExportSystemPage.clickByPartialLinkText("Start now")
+    WhatDoYouWantToDoPage.loadPage()
+    WhatDoYouWantToDoPage.select("Submit new")
+    WhatDoYouWantToDoPage.clickContinueButton()
+  }
   def viewExistingSubmissionsFromHomepage(): Unit                                         =
     AutomatedExportSystemPage
       .clickByPartialLinkText("View, change or cancel an existing submission")

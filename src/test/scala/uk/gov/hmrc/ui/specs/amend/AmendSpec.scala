@@ -51,7 +51,7 @@ class AmendSpec extends BaseSpec {
       When("I click on the 'Submit an IE507(a) Submission'")
       startNewSubmissionByLink()
 
-      Then("I am on the page titled 'What is the Movement Reference Number(MRN)?'")
+      Then("I am on the page titled 'What is the EU Movement Reference Number (MRN)?'")
       MRNPage.loadPage()
 
       When(s"I enter a valid MRN $mrn")
