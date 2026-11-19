@@ -64,7 +64,7 @@ class SubmissionDiscrepanciesSingleSpec extends BaseSpec {
       When("I click on the 'Start Now' button")
       startNewSubmissionByButton()
 
-      Then("I am on the page titled 'What is the Movement Reference Number(MRN)?'")
+      Then("I am on the page titled 'What is the EU Movement Reference Number (MRN)?'")
       MRNPage.loadPage()
 
       When(s"I enter a valid MRN $mrn")
