@@ -51,6 +51,10 @@ class SubmissionDiscrepanciesLoopSpec extends BaseSpec with DiscrepancyJourney {
       val documentType2                = "2"
       val documentReferenceNumber      = "1234"
       val documentReferenceNumber2     = "4321"
+      val secondGoodsItemNumber        = "5"
+      val secondGoodsItemDucr          = "5GB00000000000067890"
+      val secondGrossMass              = "45"
+      val secondNetMass                = "40"
 
       Given("I login with ID GB12345679")
       andILoginWithIDX("GB12345679")
@@ -301,7 +305,7 @@ class SubmissionDiscrepanciesLoopSpec extends BaseSpec with DiscrepancyJourney {
       Then("I am on the page titled 'Document details' for the 2nd document")
       DocumentDetailsPage.loadPage("2")
 
-      When("I enter a valid document details for the 2nd rdocument")
+      When("I enter a valid document details for the 2nd document")
       DocumentDetailsPage.fillInputById("documentType", documentType2)
       DocumentDetailsPage.fillInputById("referenceNumber", documentReferenceNumber2)
 
@@ -323,11 +327,37 @@ class SubmissionDiscrepanciesLoopSpec extends BaseSpec with DiscrepancyJourney {
       And("I click the Continue button")
       AddAnotherTransportDocPage.clickContinueButton()
 
-      Then("I am on the Tell Us What Has Changed page")
+      Then("I am on the Tell us what’s changed page for the first goods item")
       TellUsWhatChangedPage.loadPage()
 
-      When("I enter the changed declaration details")
-      enterChangedDetails(ducr)
+      When("I enter and submit the first goods item")
+      TellUsWhatChangedPage.fillInputById("goodsItem_declarationGoodsItemNumber", "4")
+      TellUsWhatChangedPage.fillInputById("goodsItem_declarationUniqueConsignmentReference", ducr)
+      TellUsWhatChangedPage.fillInputById("goodsItem_newGrossMass", "30")
+      TellUsWhatChangedPage.fillInputById("goodsItem_newNetMass", "28")
+      TellUsWhatChangedPage.submitPageByType()
+
+      Then("I review the first goods item and choose to add another")
+      GoodsItemCYAPage.loadPage("1")
+      GoodsItemCYAPage.clickContinue()
+      AddAnotherGoodsItemPage.loadPage("1")
+      answerAddAnother(AddAnotherGoodsItemPage, "Yes")
+
+      Then("I am on the Tell us what’s changed page for the second goods item")
+      TellUsWhatChangedPage.loadPage("2")
+
+      When("I enter and submit the second goods item")
+      TellUsWhatChangedPage.fillInputById("goodsItem_declarationGoodsItemNumber", secondGoodsItemNumber)
+      TellUsWhatChangedPage.fillInputById("goodsItem_declarationUniqueConsignmentReference", secondGoodsItemDucr)
+      TellUsWhatChangedPage.fillInputById("goodsItem_newGrossMass", secondGrossMass)
+      TellUsWhatChangedPage.fillInputById("goodsItem_newNetMass", secondNetMass)
+      TellUsWhatChangedPage.submitPageByType()
+
+      Then("I review the second goods item and continue to packaging")
+      GoodsItemCYAPage.loadPage("2")
+      GoodsItemCYAPage.clickContinue()
+      AddAnotherGoodsItemPage.loadPage("2")
+      answerAddAnother(AddAnotherGoodsItemPage, "No")
 
       Then("I add the first packaging detail")
       addPackaging("1", "BX", "1", "MARKS123")

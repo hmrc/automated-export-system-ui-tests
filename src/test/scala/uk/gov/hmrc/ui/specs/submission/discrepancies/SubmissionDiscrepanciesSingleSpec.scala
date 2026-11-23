@@ -235,14 +235,21 @@ class SubmissionDiscrepanciesSingleSpec extends BaseSpec {
       Then("I am on the page titled 'Tell us what’s changed'")
       TellUsWhatChangedPage.loadPage()
 
-      When("I enter valid changed details")
-      TellUsWhatChangedPage.fillInputById("declarationGoodsItemNumber", goodsItemNumber)
-      TellUsWhatChangedPage.fillInputById("declarationUniqueConsignmentReference", ducr)
-      TellUsWhatChangedPage.fillInputById("newGrossMass", newGrossMass)
-      TellUsWhatChangedPage.fillInputById("newNetMass", newNetMass)
-
-      And("I click the Continue button")
+      When("I enter and submit the goods item details")
+      TellUsWhatChangedPage.fillInputById("goodsItem_declarationGoodsItemNumber", goodsItemNumber)
+      TellUsWhatChangedPage.fillInputById("goodsItem_declarationUniqueConsignmentReference", ducr)
+      TellUsWhatChangedPage.fillInputById("goodsItem_newGrossMass", newGrossMass)
+      TellUsWhatChangedPage.fillInputById("goodsItem_newNetMass", newNetMass)
       TellUsWhatChangedPage.submitPageByType()
+
+      Then("I am on the Goods Item Check Your Answers page")
+      GoodsItemCYAPage.loadPage("1")
+      GoodsItemCYAPage.clickContinue()
+
+      Then("I see one goods item on the list and continue to packaging")
+      AddAnotherGoodsItemPage.loadPage("1")
+      AddAnotherGoodsItemPage.select("No")
+      AddAnotherGoodsItemPage.clickContinueButton()
 
       Then("I am on the page titled 'Packing details'")
       PackingDetailsPage.loadPage()
