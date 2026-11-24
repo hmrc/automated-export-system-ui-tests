@@ -22,7 +22,7 @@ object RemoveGoodsReferencePage extends YesNoPage {
 
   override def title(args: String*): String = "Are you sure you want to remove Declaration Goods Reference"
 
-  override def urlPart(args: String*): Option[String] = Some(s"/remove-goods-reference/${args.head}")
+  override def urlPart(args: String*): Option[String] = Some(s"/discrepancy-reference/${args.head}/remove")
 
   def confirm(): Unit = submitPageByType()
 

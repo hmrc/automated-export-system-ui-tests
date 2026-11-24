@@ -149,21 +149,6 @@ class SubmissionDiscrepanciesLoopSpec extends BaseSpec with DiscrepancyJourney {
       And("I click the Continue button")
       ContainerDetailsPage.submitPageByType()
 
-      Then("I am on the Transport Equipment Check Your Answers page")
-      TransportEquipmentCYAPage.loadPage("1")
-
-      When("I click the Continue button on the Transport Equipment Check Your Answers page")
-      TransportEquipmentCYAPage.clickContinue()
-
-      Then("I am on the 'You have added 1 transport equipment' page")
-      AddAnotherTransportEquipmentPage.loadPage("1")
-
-      When("I click 'No' to not add another transport equipment")
-      AddAnotherTransportEquipmentPage.select("No")
-
-      And("I click the Continue button")
-      AddAnotherTransportEquipmentPage.clickContinueButton()
-
       Then("I am on the page titled 'What is the seal identifier?'")
       SealIdentifierPage.loadPage()
 
@@ -261,6 +246,15 @@ class SubmissionDiscrepanciesLoopSpec extends BaseSpec with DiscrepancyJourney {
 
       And("I click the Continue button")
       AddAnotherGoodsReferencePage.clickContinueButton()
+
+      Then("I am on the 'You have added 1 transport equipment' page")
+      AddAnotherTransportEquipmentPage.loadPage("1")
+
+      When("I click 'No' to not add another transport equipment")
+      AddAnotherTransportEquipmentPage.select("No")
+
+      And("I click the Continue button")
+      AddAnotherTransportEquipmentPage.clickContinueButton()
 
       Then("I am on the page titled 'Transport across the border'")
       TransportAcrossBorderPage.loadPage()

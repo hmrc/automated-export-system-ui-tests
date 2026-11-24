@@ -73,9 +73,8 @@ class MrnDucrValidationSpec extends BaseSpec {
       Then("I remain on the page titled 'What is the EU Movement Reference Number (MRN)?'")
       MRNPage.loadPage()
 
-      // AES-881: raw message key shown instead of readable text - update once fixed.
-      And("I see the error 'Enter `enterMrn`'")
-      MRNPage.checkForContent("Enter `enterMrn`")
+      And("I see the error 'Enter the Movement Reference number'")
+      MRNPage.checkForContent("Enter the Movement Reference number")
     }
 
     Scenario("Submitting an invalid-format MRN shows an error and does not progress") {
@@ -105,7 +104,9 @@ class MrnDucrValidationSpec extends BaseSpec {
       MRNPage.loadPage()
 
       And("I see the invalid format error message")
-      MRNPage.checkForContent("EnterMrn must be in the correct format, for example 26IE0A123456789012")
+      MRNPage.checkForContent(
+        "Enter a Movement Reference Number in the correct format. This is the 18-character reference from the EU export declaration. For example, 24AB123456789012A1."
+      )
     }
 
     Scenario("Submitting an empty DUCR shows an error and does not progress") {
@@ -140,7 +141,6 @@ class MrnDucrValidationSpec extends BaseSpec {
       Then("I remain on the page titled 'What is the Declaration Unique Consignment Reference (DUCR)?'")
       DUCRPage.loadPage()
 
-      // AES-881: raw message key shown instead of readable text - update once fixed.
       And("I see the error 'Enter enterDucr'")
       DUCRPage.checkForContent("Enter enterDucr")
     }

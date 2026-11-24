@@ -83,16 +83,22 @@ trait DiscrepancyJourney { self: BaseSpec =>
     ModeOfTransportBorderPage.submitPageByType()
   }
 
-  protected def addTransportEquipment(index: String): Unit = {
-    When(s"I add transport equipment $index")
+  protected def addContainerDetails(index: String): Unit = {
+    When(s"I add container details for transport equipment $index")
     ContainerDetailsPage.loadPage()
     ContainerDetailsPage.fillInputById("containerId", s"CONT123456789012$index")
     ContainerDetailsPage.fillInputById("numberOfSeals", "1")
     ContainerDetailsPage.submitPageByType()
+  }
 
-    Then(s"I am on the Transport Equipment Check Your Answers page for equipment $index")
-    TransportEquipmentCYAPage.loadPage(index)
-    TransportEquipmentCYAPage.clickContinue()
+  protected def addTransportEquipment(index: String): Unit = {
+    addContainerDetails(index)
+    addSeal("1", "SEAL001")
+    answerAddAnother(AddAnotherSealPage, "No")
+    addGoodsReference("1", "123")
+    answerAddAnother(AddAnotherGoodsReferencePage, "No")
+
+    Then(s"I am on the add another transport equipment page for equipment $index")
     AddAnotherTransportEquipmentPage.loadPage(index)
   }
 

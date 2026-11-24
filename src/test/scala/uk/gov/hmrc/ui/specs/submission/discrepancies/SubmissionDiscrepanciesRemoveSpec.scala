@@ -28,8 +28,7 @@ class SubmissionDiscrepanciesRemoveSpec extends BaseSpec with DiscrepancyJourney
     Scenario("E2E Journey: Remove one of two seals and submit the declaration") {
       startJourneyUpToContainerDetails(TestDataGenerators.generateMrn())
 
-      addTransportEquipment("1")
-      answerAddAnother(AddAnotherTransportEquipmentPage, "No")
+      addContainerDetails("1")
 
       addSeal("1", "SEAL001")
       answerAddAnother(AddAnotherSealPage, "Yes")
@@ -51,6 +50,8 @@ class SubmissionDiscrepanciesRemoveSpec extends BaseSpec with DiscrepancyJourney
 
       addGoodsReference("1", "123")
       answerAddAnother(AddAnotherGoodsReferencePage, "No")
+      AddAnotherTransportEquipmentPage.loadPage("1")
+      answerAddAnother(AddAnotherTransportEquipmentPage, "No")
 
       enterTransportAndGoodsDetails()
       addPackaging("1", "BX", "1", "MARKS123")
@@ -63,8 +64,7 @@ class SubmissionDiscrepanciesRemoveSpec extends BaseSpec with DiscrepancyJourney
     Scenario("E2E Journey: Remove one of two Declaration Goods References and submit the declaration") {
       startJourneyUpToContainerDetails(TestDataGenerators.generateMrn())
 
-      addTransportEquipment("1")
-      answerAddAnother(AddAnotherTransportEquipmentPage, "No")
+      addContainerDetails("1")
 
       addSeal("1", "SEAL001")
       answerAddAnother(AddAnotherSealPage, "No")
@@ -86,6 +86,8 @@ class SubmissionDiscrepanciesRemoveSpec extends BaseSpec with DiscrepancyJourney
       Then("I am back on the add another page with 1 Declaration Goods Reference")
       AddAnotherGoodsReferencePage.loadPage("1")
       answerAddAnother(AddAnotherGoodsReferencePage, "No")
+      AddAnotherTransportEquipmentPage.loadPage("1")
+      answerAddAnother(AddAnotherTransportEquipmentPage, "No")
 
       enterTransportAndGoodsDetails()
       addPackaging("1", "BX", "1", "MARKS123")
@@ -98,14 +100,15 @@ class SubmissionDiscrepanciesRemoveSpec extends BaseSpec with DiscrepancyJourney
     Scenario("E2E Journey: Remove one of two packaging details and submit the declaration") {
       startJourneyUpToContainerDetails(TestDataGenerators.generateMrn())
 
-      addTransportEquipment("1")
-      answerAddAnother(AddAnotherTransportEquipmentPage, "No")
+      addContainerDetails("1")
 
       addSeal("1", "SEAL001")
       answerAddAnother(AddAnotherSealPage, "No")
 
       addGoodsReference("1", "123")
       answerAddAnother(AddAnotherGoodsReferencePage, "No")
+      AddAnotherTransportEquipmentPage.loadPage("1")
+      answerAddAnother(AddAnotherTransportEquipmentPage, "No")
 
       enterTransportAndGoodsDetails()
 
