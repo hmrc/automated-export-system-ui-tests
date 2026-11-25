@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.ui.pages.common
 
+import org.openqa.selenium.TimeoutException
+
 trait Page extends BasePage {
 
   def title(args: String*): String
@@ -29,8 +31,23 @@ trait Page extends BasePage {
   }
 
   private def onPage(expectedTitle: String, expectedUrlPart: Option[String]): Unit = {
-    fluentWait.until(_.getTitle.contains(expectedTitle))
-    expectedUrlPart.foreach(part => fluentWait.until(_.getCurrentUrl.contains(part)))
+    var seen = "nothing"
+    try {
+      fluentWait.until { driver =>
+        seen = s"title='${driver.getTitle}' url='${driver.getCurrentUrl}'"
+        driver.getTitle.contains(expectedTitle)
+      }
+      expectedUrlPart.foreach { part =>
+        fluentWait.until { driver =>
+          seen = s"title='${driver.getTitle}' url='${driver.getCurrentUrl}'"
+          driver.getCurrentUrl.contains(part)
+        }
+      }
+    } catch {
+      case e: TimeoutException =>
+        println(s"[DEBUG] Expected title '$expectedTitle', urlPart $expectedUrlPart, but saw $seen")
+        throw e
+    }
   }
 
 }

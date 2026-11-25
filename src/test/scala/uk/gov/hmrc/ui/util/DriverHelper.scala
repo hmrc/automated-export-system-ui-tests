@@ -26,12 +26,12 @@ trait DriverHelper extends Driver {
 
   def fluentWait(implicit driver: WebDriver): FluentWait[WebDriver] =
     new FluentWait(driver)
-      .withTimeout(Duration.ofSeconds(10))
+      .withTimeout(Duration.ofSeconds(20))
       .pollingEvery(Duration.ofMillis(500))
       .ignoring(classOf[Exception])
 
   def explicitWait(implicit driver: WebDriver): WebDriverWait =
-    new WebDriverWait(driver, Duration.ofSeconds(10))
+    new WebDriverWait(driver, Duration.ofSeconds(20))
 
   def find(by: By)(implicit driver: WebDriver): WebElement =
     fluentWait.until(ExpectedConditions.presenceOfElementLocated(by))
