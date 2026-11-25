@@ -146,11 +146,17 @@ trait DiscrepancyJourney { self: BaseSpec =>
 
     And("I enter valid changed details")
     TellUsWhatChangedPage.loadPage()
-    TellUsWhatChangedPage.fillInputById("declarationGoodsItemNumber", "4")
-    TellUsWhatChangedPage.fillInputById("declarationUniqueConsignmentReference", ducr)
-    TellUsWhatChangedPage.fillInputById("newGrossMass", "30")
-    TellUsWhatChangedPage.fillInputById("newNetMass", "28")
+    TellUsWhatChangedPage.fillInputById("goodsItem_declarationGoodsItemNumber", "4")
+    TellUsWhatChangedPage.fillInputById("goodsItem_declarationUniqueConsignmentReference", "5GB00000000000012345")
+    TellUsWhatChangedPage.fillInputById("goodsItem_newGrossMass", "30")
+    TellUsWhatChangedPage.fillInputById("goodsItem_newNetMass", "28")
     TellUsWhatChangedPage.submitPageByType()
+
+    GoodsItemCYAPage.loadPage("1")
+    GoodsItemCYAPage.clickContinue()
+
+    AddAnotherGoodsItemPage.loadPage("1")
+    answerAddAnother(AddAnotherGoodsItemPage, "No")
   }
 
   protected def addPackaging(index: String, code: String, packages: String, marks: String): Unit = {
