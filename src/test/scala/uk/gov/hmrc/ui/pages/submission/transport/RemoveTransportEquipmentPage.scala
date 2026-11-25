@@ -24,7 +24,7 @@ object RemoveTransportEquipmentPage extends YesNoPage {
   override def title(args: String*): String =
     s"Are you sure you want to remove transport equipment ${args(1)}?"
 
-  override def urlPart(args: String*): Option[String] = Some(s"/remove-transport-equipment/${args.head}")
+  override def urlPart(args: String*): Option[String] = Some(s"/discrepancy-transport/${args.head}/remove")
 
   def confirm(): Unit = submitPageByType()
 

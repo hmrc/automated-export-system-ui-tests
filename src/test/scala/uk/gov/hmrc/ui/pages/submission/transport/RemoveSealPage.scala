@@ -22,7 +22,7 @@ object RemoveSealPage extends YesNoPage {
 
   override def title(args: String*): String = "Are you sure you want to remove Seal details?"
 
-  override def urlPart(args: String*): Option[String] = Some(s"/remove-seal/${args.head}")
+  override def urlPart(args: String*): Option[String] = Some(s"/discrepancy-seals/${args.head}/remove")
 
   def confirm(): Unit = submitPageByType()
 

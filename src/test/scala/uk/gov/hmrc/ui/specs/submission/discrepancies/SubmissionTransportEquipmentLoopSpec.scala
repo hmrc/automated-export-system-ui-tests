@@ -18,6 +18,7 @@ package uk.gov.hmrc.ui.specs
 package submission.discrepancies
 
 import uk.gov.hmrc.ui.pages.submission.*
+import uk.gov.hmrc.ui.pages.submission.goods.*
 import uk.gov.hmrc.ui.pages.submission.transport.*
 import uk.gov.hmrc.ui.util.TestDataGenerators
 
@@ -53,39 +54,12 @@ class SubmissionTransportEquipmentLoopSpec extends BaseSpec with DiscrepancyJour
       ContainerDetailsPage.loadPage()
       ContainerDetailsPage.fillInputById("containerId", "CHANGED001")
       ContainerDetailsPage.submitPageByType()
-      TransportEquipmentCYAPage.loadPage("1")
-      TransportEquipmentCYAPage.clickContinue()
 
       Then("the list still has 2 items and shows the new container id")
       AddAnotherTransportEquipmentPage.loadPage("2")
       AddAnotherTransportEquipmentPage.checkForContent("You have added 2 transport equipment entries")
       AddAnotherTransportEquipmentPage.checkForContent("Transport equipment CHANGED001")
       AddAnotherTransportEquipmentPage.checkForContent(s"Transport equipment $container2")
-    }
-
-    Scenario("Change a transport equipment item from its Check your answers page") {
-      startJourneyUpToContainerDetails(TestDataGenerators.generateMrn())
-
-      ContainerDetailsPage.loadPage()
-      ContainerDetailsPage.fillInputById("containerId", container1)
-      ContainerDetailsPage.fillInputById("numberOfSeals", "1")
-      ContainerDetailsPage.submitPageByType()
-      TransportEquipmentCYAPage.loadPage("1")
-
-      When("I click Change for the container identification number")
-      TransportEquipmentCYAPage.clickByXPath(
-        "//a[contains(normalize-space(),'Change') and contains(normalize-space(),'container identification number')]"
-      )
-      ContainerDetailsPage.loadPage()
-      ContainerDetailsPage.fillInputById("containerId", "CHANGED001")
-      ContainerDetailsPage.submitPageByType()
-
-      Then("the Check your answers page shows the new value and the list has one item")
-      TransportEquipmentCYAPage.loadPage("1")
-      TransportEquipmentCYAPage.checkForContent("CHANGED001")
-      TransportEquipmentCYAPage.clickContinue()
-      AddAnotherTransportEquipmentPage.loadPage("1")
-      AddAnotherTransportEquipmentPage.checkForContent("Transport equipment CHANGED001")
     }
 
     Scenario("Remove one of two transport equipment items") {
@@ -144,14 +118,14 @@ class SubmissionTransportEquipmentLoopSpec extends BaseSpec with DiscrepancyJour
       ContainerDetailsPage.loadPage()
     }
 
-    Scenario("Select No on the list page and go to the seals page") {
+    Scenario("Select No on the list page and go to the transport across the border page") {
       startJourneyUpToContainerDetails(TestDataGenerators.generateMrn())
 
       addTransportEquipment("1")
       answerAddAnother(AddAnotherTransportEquipmentPage, "No")
 
-      Then("I am on the first seal page")
-      SealIdentifierPage.loadPage("1")
+      Then("I am on the transport across the border page")
+      TransportAcrossBorderPage.loadPage()
     }
 
     Scenario("Submit an empty container details page when no transport equipment was added") {
@@ -201,8 +175,10 @@ class SubmissionTransportEquipmentLoopSpec extends BaseSpec with DiscrepancyJour
         ContainerDetailsPage.fillInputById("containerId", s"CONT$i")
         ContainerDetailsPage.fillInputById("numberOfSeals", "1")
         ContainerDetailsPage.submitPageByType()
-        TransportEquipmentCYAPage.loadPage(i.toString)
-        TransportEquipmentCYAPage.clickContinue()
+        addSeal("1", "SEAL001")
+        answerAddAnother(AddAnotherSealPage, "No")
+        addGoodsReference("1", "123")
+        answerAddAnother(AddAnotherGoodsReferencePage, "No")
         AddAnotherTransportEquipmentPage.loadPage(i.toString)
         if (i < 26) answerAddAnother(AddAnotherTransportEquipmentPage, "Yes")
       }

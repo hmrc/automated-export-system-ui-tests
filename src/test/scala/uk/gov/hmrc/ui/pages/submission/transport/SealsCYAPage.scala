@@ -20,6 +20,10 @@ import uk.gov.hmrc.ui.pages.common.ItemCYAPage
 
 object SealsCYAPage extends ItemCYAPage {
 
-  override protected def urlSegment: String = "seals-check-answers"
+  override protected def urlSegment: String = "check-answers"
+
+  // URL: /discrepancy-transport/<equipment>/discrepancy-seals/<seal>/check-answers
+  override def urlPart(args: String*): Option[String] =
+    Some(s"/discrepancy-seals/${args.head}/check-answers")
 
 }
